@@ -47,6 +47,8 @@ client.on('message', message =>{
 		client.commands.get('econlookup').execute(message, args);
 	} else if (command === 'ip'){
 		client.commands.get('ip').execute(message, args);
+	} else if (command === 'clear'){
+		client.commands.get('clear').execute(message, args);
 	}
 })
 
