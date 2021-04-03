@@ -2,6 +2,9 @@ module.exports = {
 	name: 'clear',
 	description: "Clears Text",
     async execute(messages, args) {
+
+        if(messages.member.roles.cache.some(r => r.name === "Mod Bot User")){
+
         if(!args[0]) return message.reply("Please enter the ammount of messages to clear!");
         if(isNaN(args[0])) return message.reply("Please use a real number!");
 
@@ -11,7 +14,6 @@ module.exports = {
         await message.channel.messages.fetch({limit: args[0]}).then(messages =>{
             message.channel.bulkDelete(messages)
         })
+        }
     }
-
-
 }

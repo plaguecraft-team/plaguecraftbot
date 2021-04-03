@@ -3,7 +3,7 @@ module.exports = {
 	description: "PCN Kick Command",
 	execute(messages, args){
 		
-		if(messages.member.roles.cache.some(r => r.name === "Moderator")){
+		if(messages.member.roles.cache.some(r => r.name === "Mod Bot User")){
 					const member = messages.mentions.users.first();
 
 		if(member){
