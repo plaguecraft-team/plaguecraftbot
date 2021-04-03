@@ -45,6 +45,8 @@ client.on('message', message =>{
 		client.commands.get('swlookup').execute(message, args);
 	} else if (command === 'econlookup'){
 		client.commands.get('econlookup').execute(message, args);
+	} else if (command === 'ip'){
+		client.commands.get('ip').execute(message, args);
 	}
 })
 
