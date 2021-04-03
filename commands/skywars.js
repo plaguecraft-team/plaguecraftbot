@@ -11,7 +11,7 @@ module.exports = {
 		http
   		.request(
     		{
-      hostname: "", // url of api blah blah blah
+      hostname: "services.plaguecraft.xyz", // url of api blah blah blah
       port: "3000",
       path: `/api/sw_player/findOne?_where=(player,eq,${args})`
     },
