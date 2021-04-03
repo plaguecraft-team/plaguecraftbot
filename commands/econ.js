@@ -11,7 +11,7 @@ module.exports = {
 		http
   		.request(
     {
-      hostname: "", // url for backend rest api
+      hostname: "services.plaguecraft.xyz", // url for backend rest api
       port: "3000", // port for backend api
       path: `/api/xconomy/findOne?_where=(player,eq,${args})` // path for backend api, all same in skywars.js
     },
