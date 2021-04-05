@@ -1,3 +1,5 @@
+// This module was contributed by RandomMafia11.
+
 module.exports = {
 	name: 'clear',
 	description: "Clears Text",

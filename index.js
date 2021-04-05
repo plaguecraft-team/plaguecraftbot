@@ -49,6 +49,8 @@ client.on('message', message =>{
 		client.commands.get('ip').execute(message, args);
 	} else if (command === 'clear'){
 		client.commands.get('clear').execute(message, args);
+	} else if (command === 'ticket'){
+		client.commands.get('ticket').execute(message, args);
 	}
 })
 
