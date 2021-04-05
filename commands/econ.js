@@ -22,7 +22,7 @@ module.exports = {
         data += d
       })
       res.on("end", () => {
-      	messages.channel.send(`${messages.author}, the PlagueCraft Network Backend returned the following information:\n ${data}`);
+      	messages.channel.send(`${messages.author}, the PlagueCraft Network Backend returned the following information:\n ${data}\nPlain JSON Link: http://services.plaguecraft.xyz:3000/api/sw_player/findOne?_where=(player_name,eq,${args})\nIf you were returned an empty array ([] is an empty array), the backend has no data on that Minecraft username. Check out https://plaguecraft.xyz/bot-faq for more information.`);
         console.log(`${messages.author} got the following data from the REST API:`, data)
       })
     }
