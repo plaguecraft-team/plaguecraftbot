@@ -20,4 +20,6 @@
 <p align="center">node.js - Obviously. Why wouldn't we need the thing it'd coded in lmao<br />
 discord.js<br />
 node-fetch - Not required atm, but eventually will be. Used eventually to fetch data from our backend (http://services.plaguecraft.xyz:3000). It will replace the http module.<br />
-http - This is a pre-installed Node.js module, currently used to fetch data from our backend.. No need to `npm i http`.</p>
+http - This is a pre-installed Node.js module, currently used to fetch data from our backend.. No need to `npm i http`.<br>
+dotenv - If you'd like. You can make modifications for it to just pull the token directly from the file, however this is not needed.<br>
+ms - used for the mute command's timer</p>
