@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'ticket',
 	description: "Creates a support ticket via Discord",
-	async execute(messages, args) {
+	async execute(message, args) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`);
         channel.setParent('828168413247176714'); // Category ID
 
