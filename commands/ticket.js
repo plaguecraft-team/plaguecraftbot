@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'ticket',
 	description: "Creates a support ticket via Discord",
-	async execute(message, args) {
+	async execute(message, args, Discord, client) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`);
         channel.setParent('828168413247176714'); // Category ID
 
@@ -15,6 +15,16 @@ module.exports = {
             SEND_MESSAGE: true,
             VIEW_CHANNEL: true    
         });
+
+        const ticketEmbed = new Discord.MessageEmbed()
+            .setTitle('Ticket Notification!')
+            .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+            .setDescription(`${message.author} has created a new ticket!`)
+            .setColor('#03fc41')  
+
+            const channelnoti = client.channels.cache.find(channel => channel.name === "notification")
+
+            channelnoti.send(ticketEmbed)
 
         const reactionMessage = await channel.send('Thank you for contacting PCN Support, our team will be right with you!');
 

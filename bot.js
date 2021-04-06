@@ -1,15 +1,15 @@
 // The PlagueCraft Network Discord Bot
 // This project is liscensed under the MIT Open-Source License (https://opensource.org/licenses/mit)
 
-// (c) 2021 The PlagueCraft Network
+// Copyright (c) 2021 The PlagueCraft Network
 // Read the LICENSE file to learn more about the MIT Licenses
 
 
 // Calling all packages needed for this project
 const Discord = require('discord.js');
 const fs = require('fs');
-const fetch = require('node-fetch');
 const http = require('http');
+// const fetch = require('node-fetch'); - For a future update
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();
@@ -54,21 +54,21 @@ client.on('message', message =>{
 	} else if (command === 'ip') {
 		client.commands.get('ip').execute(message, args);
 	} else if (command === 'ticket') {
-		client.commands.get('ticket').execute(message, args);
+		client.commands.get('ticket').execute(message, args, Discord, client);
 	} else if (command === 'kick') {
-		client.commands.get('kick').execute(message, args);
+		client.commands.get('kick').execute(message, args, Discord, client);
 	} else if (command === 'ban') {
-		client.commands.get('ban').execute(message, args); 
+		client.commands.get('ban').execute(message, args, Discord, client); 
 	} else if (command === 'mute') {
-		client.commands.get('mute').execute(message, args);
+		client.commands.get('mute').execute(message, args, Discord, client);
 	} else if (command === 'unmute') {
-		client.commands.get('unmute').execute(message, args);
+		client.commands.get('unmute').execute(message, args, Discord, client);
 	} else if (command === 'swlookup') {
 		client.commands.get('swlookup').execute(message, args, Discord, http);
 	} else if (command === 'econlookup') {
 		client.commands.get('econlookup').execute(message, args, Discord, http);
 	} else if (command === 'clear') {
-		client.commands.get('clear').execute(message, args);
+		client.commands.get('clear').execute(message, args, Discord, client);
 	} else if (command === 'mod-help') {
 		client.commands.get('mod-help').execute(message, args);
 	}

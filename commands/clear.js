@@ -1,8 +1,8 @@
 module.exports = {
 	name: 'clear',
 	description: 'PCN Clear Command',
-	async execute(message, args) {
-		if(messages.member.roles.cache.some(r => r.name === "Mod Bot User")){
+	async execute(message, args, Discord, client) {
+		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 
         if(!args[0]) return message.reply("Please enter the amount of messages to clear!");
         if(isNaN(args[0])) return message.reply("Please use a real number!");
@@ -12,6 +12,18 @@ module.exports = {
 
         await message.channel.messages.fetch({limit: args[0]}).then(messages =>{
             message.channel.bulkDelete(messages)
+
+            const purgeEmbed = new Discord.MessageEmbed()
+            .setTitle('Messages purged!')
+            .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+            .setDescription(`${message.author} has purged ${args} messages!`)
+            .setColor('#c7002e')
+
+            const channel = client.channels.cache.find(channel => channel.name === "messages")
+
+            channel.send(purgeEmbed);
+
+            console.log(`${message.author} has cleared ${args} messages!`)
         })
         }
 	}
