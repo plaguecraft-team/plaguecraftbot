@@ -7,6 +7,7 @@
 <hr>
 
 <h2 align="center">The PlagueCraft Network Discord Bot</h2>
+	<p align="center"><a href="LICENSE">MIT License Agreement</a> ---- <a href="change.log">Changelog</a></p>
 
 <p align="center">This bot is used in the <a href="https://plaguecraft.xyz/discord">PlagueCraft Network Discord server</a> for moderation, Minecraft tools, and more. It has a built-in ticket system, moderation commands (kick, ban etc) and some Minecraft commands, like something to check the status!</p>
 

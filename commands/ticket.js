@@ -2,7 +2,7 @@
 
 module.exports = {
 	name: 'ticket',
-	description: "Works on ticket ",
+	description: "Creates a support ticket via Discord",
 	async execute(messages, args) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`);
         channel.setParent('828168413247176714'); // Category ID
@@ -23,7 +23,7 @@ module.exports = {
             await reactionMessage.react("🔒");
             await reactionMessage.react("⛔");
         }catch(err){
-            channel.send('There was an error reacting emojis to the previous message, please contact RandomMafia11 and/or reach out via https://support.plaguecraft.xyz.');
+            channel.send('There was an error reacting to the previous message, please contact RandomMafia11 and/or reach out via https://support.plaguecraft.xyz.');
             throw err;
         }
         
@@ -37,7 +37,7 @@ module.exports = {
                     channel.updateOverwrite(message.author, { SEND_MESSAGES: false});
                     break;
                 case "⛔":
-                    channel.send('This channel will be delelted in 5 seconds!')
+                    channel.send('This channel will be deleted in 5 seconds!')
                     setTimeout(() => channel.delete(), 5000);
                     break;
             }

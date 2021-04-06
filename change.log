@@ -1,0 +1,9 @@
+I've completely rewrote the entry script and made some internal changes to the bot!
+
+1 - Added the token to an ignored .env file (New req: dotenv)
+2 - Added argument checks to the kick, ban, and mute/unmute commands (returns if there are no mentions)
+3 - Added gitignore file to keep some stuff from showing
+4 - Changed how the backend lookups show (embeds)
+5 - Corrected some spelling
+6 - Changed main JS file from 'index.js' to 'bot.js'
+7 - Implemented the Liscense file
