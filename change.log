@@ -7,3 +7,5 @@ I've completely rewrote the entry script and made some internal changes to the b
 5 - Corrected some spelling
 6 - Changed main JS file from 'index.js' to 'bot.js'
 7 - Implemented the Liscense file
+8 - Added logging in all of our moderation commands
+9 - Cleared up some commands, added more embeds nd stuff lmao
