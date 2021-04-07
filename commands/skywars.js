@@ -1,9 +1,7 @@
-const http = require('http');
-
 module.exports = {
 	name: 'swlookup',
 	description: "Calls a REST API for PlagueCraft Network SkyWars data",
-	execute(message, args, Discord) {
+	execute(message, args, Discord, http) {
 		
     if(!args.length){
 			return message.channel.send(`Hey ${message.author}, you didn't supply a username! The correct syntax is **pcn!swlookup [mc-username]**.\nNote that if you never played a SkyWars match, you will not be listed here.`)

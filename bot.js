@@ -70,7 +70,9 @@ client.on('message', message =>{
 	} else if (command === 'clear') {
 		client.commands.get('clear').execute(message, args, Discord, client);
 	} else if (command === 'mod-help') {
-		client.commands.get('mod-help').execute(message, args);
+		client.commands.get('mod-help').execute(message, args, Discord, client);
+	} else if (command === 'suggest') {
+		client.commands.get('suggest').execute(message, args, Discord, client);
 	}
 })
 

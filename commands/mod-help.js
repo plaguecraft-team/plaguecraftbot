@@ -1,9 +1,7 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name:'mod-help',
 	description: "PCN mod-help command",
-	execute(message, args) {
+	execute(message, args, Discord, client) {
 		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 		const modEmbed = new Discord.MessageEmbed()
 		.setColor('#c7002e')
