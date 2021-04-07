@@ -28,6 +28,8 @@ module.exports = {
             .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
             .setDescription(`${message.author} has unmuted ${memberTarget}!`)
             .setColor('#03fc41')  
+            .setFooter(`PCN Unmutes`)
+            .setTimestamp();
 
             channel.send(unmuteEmbed);
 

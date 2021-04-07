@@ -7,7 +7,7 @@ module.exports = {
 			const member = message.mentions.users.first();
 
 			if(!args.length) {
-				return message.reply('You need to specify a user to kick!')
+				return message.reply('you need to specify a user to kick!')
 			}
 
 		if(member) {
@@ -17,15 +17,16 @@ module.exports = {
 			console.log(`UID ${memberTarget} has been kicked!`)
 
 			const kickEmbed = new Discord.MessageEmbed()
-			.setTitle('Banned!')
+			.setTitle('Kicked!')
 			.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
 			.setDescription(`${message.author} has kicked ${memberTarget}!`)
 			.setColor('#c7002e')
+			.setFooter(`PCN Kicks`)
+			.setTimestamp();
 
 			const channel = client.channels.cache.find(channel => channel.name === "punishments")
 
 			channel.send(kickEmbed);
-
 
 		} else {
 			message.channel.send(`That user could not be kicked from the server!`)

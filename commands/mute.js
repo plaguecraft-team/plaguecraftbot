@@ -43,6 +43,8 @@ module.exports = {
             .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
             .setDescription(`${message.author} has muted ${memberTarget} for ${ms(ms(args[1]))}!`)
             .setColor('#c7002e')
+            .setFooter(`PCN Mutes`)
+            .setTimestamp();
 
             const channel = client.channels.cache.find(channel => channel.name === "punishments")
             channel.send(muteTimedEmbed)

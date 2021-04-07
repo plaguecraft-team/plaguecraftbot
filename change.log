@@ -1,5 +1,7 @@
 I've completely rewrote the entry script and made some internal changes to the bot!
 
+4/6-7/21 UPDATES
+
 1 - Added the token to an ignored .env file (New req: dotenv)
 2 - Added argument checks to the kick, ban, and mute/unmute commands (returns if there are no mentions)
 3 - Added gitignore file to keep some stuff from showing
@@ -9,3 +11,10 @@ I've completely rewrote the entry script and made some internal changes to the b
 7 - Implemented the Liscense file
 8 - Added logging in all of our moderation commands
 9 - Cleared up some commands, added more embeds nd stuff lmao
+10 - Added footers to the punishment embeds
+11 - Fixed an issue where the bot would not catch API errors correctly and crash instantly.
+12 - Fixed undefined errors in the ping command
+13 - Changed some stuff in the clear command
+14 - Updated incorrect titling in the Kick command
+15 - Added the suggestion command
+16 - 

@@ -17,6 +17,8 @@ module.exports = {
 			.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
 			.setDescription(`${message.author} has banned ${memberTarget}!`)
 			.setColor('#c7002e')
+			.setFooter(`PCN Bans`)
+			.setTimestamp();
 
 			memberTarget.ban();
 			message.channel.send(`${memberTarget} has been banned.`)
@@ -30,7 +32,7 @@ module.exports = {
 		}
 
 		} else {
-			messages.reply('You do not have sufficient permissions to run this command.')
+			message.reply('You do not have sufficient permissions to run this command.')
 		}
 	}
 }
