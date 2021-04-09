@@ -9,7 +9,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const http = require('http');
-const config = require('./config.js');
 
 // const fetch = require('node-fetch'); - For a future update
 
