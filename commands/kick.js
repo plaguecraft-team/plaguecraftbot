@@ -6,20 +6,24 @@ module.exports = {
 		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")) {
 			const member = message.mentions.users.first();
 
-			if(!args.length) {
+			if(!args[0]) {
 				return message.reply('you need to specify a user to kick!')
 			}
 
+			if(!args[1]) {
+				return message.reply(`you need to specify why you're banning this user!`)
+			}
+
 		if(member) {
+			const reason = args.slice(1).join(' ');
 			const memberTarget = message.guild.members.cache.get(member.id);
 			memberTarget.kick();
-			message.channel.send(`${memberTarget} has been kicked from the server.`)
 			console.log(`UID ${memberTarget} has been kicked!`)
 
 			const kickEmbed = new Discord.MessageEmbed()
 			.setTitle('Kicked!')
 			.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
-			.setDescription(`${message.author} has kicked ${memberTarget}!`)
+			.setDescription(`${message.author} has kicked ${memberTarget}!\n\nReason: "${reason}"`)
 			.setColor('#c7002e')
 			.setFooter(`PCN Kicks`)
 			.setTimestamp();

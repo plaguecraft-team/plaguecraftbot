@@ -1,20 +1,12 @@
-I've completely rewrote the entry script and made some internal changes to the bot!
+A lot of cool stuff ;)
 
-4/6-7/21 UPDATES
+4/9 UPDATES
 
-1 - Added the token to an ignored .env file (New req: dotenv)
-2 - Added argument checks to the kick, ban, and mute/unmute commands (returns if there are no mentions)
-3 - Added gitignore file to keep some stuff from showing
-4 - Changed how the backend lookups show (embeds)
-5 - Corrected some spelling
-6 - Changed main JS file from 'index.js' to 'bot.js'
-7 - Implemented the Liscense file
-8 - Added logging in all of our moderation commands
-9 - Cleared up some commands, added more embeds nd stuff lmao
-10 - Added footers to the punishment embeds
-11 - Fixed an issue where the bot would not catch API errors correctly and crash instantly.
-12 - Fixed undefined errors in the ping command
-13 - Changed some stuff in the clear command
-14 - Updated incorrect titling in the Kick command
-15 - Added the suggestion command
-16 - 
+1 - Now allows reasons to be added to embeds
+2 - Added a 'respond' command that allows mods to DM a user when their case has been solved.
+3 - Removed econ.js and skywars.js, merged our API lookup into one command (pcn!stats)
+4 - Reasons that were already implemented no longer show the tags of the user again (once in the user, once in the reason)
+5 - Added report command
+6 - Appended mod-help and help commands
+7 - Added in-chat support command (knowledge base)
+8 - All moderation actions are now logged via the bot -- frontend and backend

@@ -9,6 +9,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const http = require('http');
+const config = require('./config.js');
 
 // const fetch = require('node-fetch'); - For a future update
 
@@ -64,16 +65,20 @@ client.on('message', message =>{
 		client.commands.get('mute').execute(message, args, Discord, client);
 	} else if (command === 'unmute') {
 		client.commands.get('unmute').execute(message, args, Discord, client);
-	} else if (command === 'swlookup') {
-		client.commands.get('swlookup').execute(message, args, Discord, http);
-	} else if (command === 'econlookup') {
-		client.commands.get('econlookup').execute(message, args, Discord, http);
 	} else if (command === 'clear') {
 		client.commands.get('clear').execute(message, args, Discord, client);
 	} else if (command === 'mod-help') {
 		client.commands.get('mod-help').execute(message, args, Discord, client);
 	} else if (command === 'suggest') {
 		client.commands.get('suggest').execute(message, args, Discord, client);
+	} else if (command === 'support') {
+		client.commands.get('support').execute(message, args, Discord, client);
+	} else if (command === 'report') {
+		client.commands.get('report').execute(message, args, Discord, client);
+	} else if (command === 'respond') {
+		client.commands.get('report-resp').execute(message, args, Discord, client);
+	} else if (command === 'stats') {
+		client.commands.get('stats').execute(message, args, Discord, client, http);
 	}
 })
 
