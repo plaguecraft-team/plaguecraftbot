@@ -10,3 +10,4 @@ A lot of cool stuff ;)
 6 - Appended mod-help and help commands
 7 - Added in-chat support command (knowledge base)
 8 - All moderation actions are now logged via the bot -- frontend and backend
+9 - Split Mute and Tempmute to 2 commands for logging reasons

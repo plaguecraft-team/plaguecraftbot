@@ -8,7 +8,8 @@
 // Calling all packages needed for this project
 const Discord = require('discord.js');
 const fs = require('fs');
-const http = require('http');
+const request = require('request');
+const ms = require('ms');
 
 // const fetch = require('node-fetch'); - For a future update
 
@@ -77,7 +78,9 @@ client.on('message', message =>{
 	} else if (command === 'respond') {
 		client.commands.get('report-resp').execute(message, args, Discord, client);
 	} else if (command === 'stats') {
-		client.commands.get('stats').execute(message, args, Discord, client, http);
+		client.commands.get('stats').execute(message, args, Discord, client, request);
+	} else if (command === 'tempmute') {
+		client.commands.get('tempmute').execute(message, args, Discord, client, ms);
 	}
 })
 
