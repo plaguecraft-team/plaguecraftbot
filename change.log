@@ -11,3 +11,5 @@ A lot of cool stuff ;)
 7 - Added in-chat support command (knowledge base)
 8 - All moderation actions are now logged via the bot -- frontend and backend
 9 - Split Mute and Tempmute to 2 commands for logging reasons
+10 - Added status command
+11 - New dependency, minecraft-server-util. README has been updated to compensate.
