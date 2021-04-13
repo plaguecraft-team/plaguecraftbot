@@ -30,5 +30,6 @@ module.exports = {
             console.log(`${message.author} has cleared ${args} messages!`)
         })
         }
+        
 	}
 }

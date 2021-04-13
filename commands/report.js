@@ -5,7 +5,7 @@ module.exports = {
 
 		const target = message.mentions.users.first();
 
-		if(!args.length) {
+		if(!args[0]) {
 			return message.reply(`you didn't specify a user!`)
 			setTimeout(() => message.delete(), 5000);
 		}

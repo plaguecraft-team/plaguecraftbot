@@ -11,6 +11,8 @@ const fs = require('fs');
 const request = require('request');
 const ms = require('ms');
 const util = require('minecraft-server-util');
+const mi = require('minecraft-information');
+const https = require('https');
 
 // const fetch = require('node-fetch'); - For a future update
 
@@ -79,11 +81,13 @@ client.on('message', message =>{
 	} else if (command === 'respond') {
 		client.commands.get('report-resp').execute(message, args, Discord, client);
 	} else if (command === 'stats') {
-		client.commands.get('stats').execute(message, args, Discord, client, request);
+		client.commands.get('stats').execute(message, args, Discord, client, request, mi, https);
 	} else if (command === 'tempmute') {
 		client.commands.get('tempmute').execute(message, args, Discord, client, ms);
 	} else if (command === 'status') {
 		client.commands.get('status').execute(message, args, Discord, client, util);
+	} else if (command === 'apis') {
+		client.commands.get('apis').execute(message, args, Discord, client);
 	}
 })
 
