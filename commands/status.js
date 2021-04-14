@@ -3,19 +3,19 @@ module.exports = {
 	description: "Gets the status of supplied server",
 	execute(message, args, Discord, client, util) {
 
-        util.status(`play.plaguecraft.xyz`).then((response) =>{
+        util.status(`play.plaguecraft.xyz`).then((response) =>{ // Server URL
 
-            console.log(`Server was fetched!`, response);
+            console.log(`Server was fetched!`, response); // Log when server was fetched then display the response 
 
-            const statusEmbed = new Discord.MessageEmbed()
+            const statusEmbed = new Discord.MessageEmbed() // Embed creation
             .setColor('#c7002e')
             .setTitle('Server Status')
             .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
             .addFields(
-                {name: 'Server IP', value: response.host},
-                {name: 'Online Players', value: response.onlinePlayers},
-                {name: 'Max Players', value: response.maxPlayers},
-                {name: 'Questions?', value: `Check out our [status page](https://status.plaguecraft.xyz) for updates on any outages!`}
+                {name: 'Server IP', value: response.host}, // Display the IP
+                {name: 'Online Players', value: response.onlinePlayers}, // Player count
+                {name: 'Max Players', value: response.maxPlayers}, // Max players allowed at once
+                {name: 'Questions?', value: `Check out our [status page](https://status.plaguecraft.xyz) for updates on any outages!`} // status page link
             )
             .setFooter('PCN Server Status')
             .setTimestamp();
@@ -23,7 +23,7 @@ module.exports = {
             message.channel.send(statusEmbed);
         })
         .catch ((error) =>{
-            const offlineEmbed = new Discord.MessageEmbed()
+            const offlineEmbed = new Discord.MessageEmbed() // If the server doesn't respond, this is returned.
             .setColor('#c7002e')
             .setTitle('Server Status')
             .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')

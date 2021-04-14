@@ -3,13 +3,13 @@ module.exports = {
 	description: "PCN Support - Returns support topics",
 	execute(message, args, Discord, client) {
 
-		if(!args.length) {
+		if(!args[0]) {
 			return message.channel.send(`You need to specify a support topic, ${message.author}.\n*PS: Don't know what our topics are? Give **pcn!support topics** a run!*`);
-		}
+		} // Make sure there's a topic defined, and if not, error out and break from code.
 
 		// Start of support topic code
 
-		if (args[0] === 'plots') {
+		if (args[0] === 'plots') { // If arg 0 = plots, then..
 			const plotsEmbed = new Discord.MessageEmbed()
 			.setTitle(`PlagueCraft Knowledge Base`)
 			.setColor(`#c7002e`)
@@ -20,7 +20,7 @@ module.exports = {
 
 				return message.channel.send(plotsEmbed);
 
-		} else if (args[0] === 'reports') {
+		} else if (args[0] === 'reports') { // If arg 0 = reports 
 		const reportingEmbed = new Discord.MessageEmbed()
 		.setTitle(`PlagueCraft Knowledge Base`)
 		.setColor(`#c7002e`)
@@ -31,7 +31,7 @@ module.exports = {
 
 		return message.channel.send(reportingEmbed);
 		
-		} else if (args[0] === 'topics') {
+		} else if (args[0] === 'topics') { // If arg 0 = topics
 			const topicsEmbed = new Discord.MessageEmbed()
 			.setTitle(`PlagueCraft Knowledge Base`)
 			.setColor(`#c7002e`)

@@ -22,4 +22,5 @@ discord.js - for even more obvious reasons<br />
 request - bot uses it to fetch for data from the PCNAPI<br />
 dotenv - If you'd like. You can make modifications for it to just pull the token directly from the file and remove the const at the beginning of bot.js, or use .env to hide your token!<br />
 ms - used for the tempmute command timer<br />
-minecraft-server-util - For checking server status</p>
+minecraft-server-util - For checking server status<br />
+minecraft-information - Used for stats</p>
