@@ -14,7 +14,8 @@ module.exports = {
 		const user = args.slice(1).join(' '); // Cut the "econ" off so user can be combined to the URL correctly.
         
 
-let url = `http://services.plaguecraft.xyz:3000/api/xconomy/findOne?_where=(player,eq,${user})`; // Define the URL and compile the args into it
+let url = `https://api.plaguecraft.xyz/api/xconomy/bal/'${user}'`; // Define the URL and compile the args into it
+console.log(url)
 
 let options = {json: true};
 
@@ -25,18 +26,18 @@ request(url, options, (error, res, body) => { // Get everything into variables n
     };
 
     if (!error && res.statusCode == 200) { // If the response = 200 OK, then..
-        var string = JSON.stringify(body);
+        var data = JSON.stringify(body)
         const econEmbed = new Discord.MessageEmbed() // Generic Embed making
 		    .setTitle('PlagueCraft Network Economy Lookup')
 		    .setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
 		    .setColor('#c7002e')
             .setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-		    .setDescription(`Our backend returned the following information!\n\n${string}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+		    .setDescription(`Our backend returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
 		    .setFooter('PCN Backend')
 		    .setTimestamp();
       	
         message.channel.send(econEmbed);
-        console.log(`${message.author} got the following data from the REST API:`, string) // Log and send the data & embed.
+        console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
 
 		    } 
 
@@ -111,7 +112,7 @@ request(url, options, (error, res, body) => {
 	
 				const user = args.slice(1).join(' ');
 	
-	let url = `http://services.plaguecraft.xyz:3000/api/xconomy/findOne?_where=(player,eq,${user})`; // aaaaaand continues on but make it skywars
+	let url = `https://api.plaguecraft.xyz/api/xconomy/bal/'${user}'`; // aaaaaand continues on but make it skywars
 	
 	let options = {json: true};
 	
