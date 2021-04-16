@@ -14,7 +14,7 @@ module.exports = {
 		const user = args.slice(1).join(' '); // Cut the "econ" off so user can be combined to the URL correctly.
         
 
-let url = `https://api.plaguecraft.xyz/api/xconomy/bal/'${user}'`; // Define the URL and compile the args into it
+let url = `https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'`; // Define the URL and compile the args into it
 console.log(url)
 
 let options = {json: true};
@@ -48,7 +48,7 @@ request(url, options, (error, res, body) => { // Get everything into variables n
 
 			const user = args.slice(1).join(' ');
 
-let url = `http://services.plaguecraft.xyz:3000/api/sw_player/findOne?_where=(player_name,eq,${user})`; // aaaaaand continues on but make it skywars
+let url = `https://api.plaguecraft.xyz/v0/sw/'${user}'`; // aaaaaand continues on but make it skywars
 
 let options = {json: true};
 
@@ -80,7 +80,7 @@ request(url, options, (error, res, body) => {
 	
 				const user = args.slice(1).join(' ');
 	
-	let url = `http://services.plaguecraft.xyz:3000/api/sw_player/findOne?_where=(player_name,eq,${user})`; // aaaaaand continues on but make it skywars
+	let url = `https://api.plaguecraft.xyz/v0/sw/'${user}'`; // aaaaaand continues on but make it skywars
 	
 	let options = {json: true};
 	
@@ -112,7 +112,7 @@ request(url, options, (error, res, body) => {
 	
 				const user = args.slice(1).join(' ');
 	
-	let url = `https://api.plaguecraft.xyz/api/xconomy/bal/'${user}'`; // aaaaaand continues on but make it skywars
+	let url = `https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'`; // aaaaaand continues on but make it skywars
 	
 	let options = {json: true};
 	
