@@ -1,142 +1,131 @@
+const { execute } = require("./api");
+
 module.exports = {
 	name: 'stats',
-	description: 'stats command',
+	description: 'Returns player statistics',
 	async execute(message, args, Discord, client, request, mi, https) {
 
-	if (!args[0]) {
-		return message.channel.send(`You didn't provide any gamemode, ${message.author}!`);
+		const user = args.slice(1).join(' '); // Cutting the gamemode off
+		let econurl = `https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'` // Economy API URL
+		let swurl = `https://api.plaguecraft.xyz/v0/sw/'${user}'` // SkyWars API URL
+		let options = {json: true}; // request module options
+
+		if(!args[0]) { // Checks if the user did not add a gamemode or username
+			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+		}
+		
+		if (args[0] === 'economy') { // Economy argument
+			if(!args[1]) {
+				return message.reply(`you didn't specify a user to lookup!`)
+			}
+
+			request(econurl, options, (error, res, body) => {
+				if(error) { // Error handler
+					console.log(error) // Log the error
+					return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.`) // Let the user know something went wrong
+				};
+
+				if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
+					var data = JSON.stringify(body)
+					const econEmbed = new Discord.MessageEmbed() // New Embed
+					.setTitle('PlagueCraft Economy Lookup')
+					.setURL(`https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'`)
+					.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
+					.setColor(`#c7002e`)
+					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
+					.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+					.setFooter(`PCN Lookup`)
+					.setTimestamp();
+
+					console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
+					return message.channel.send(econEmbed);
+				}
+			})} else if (!args[0] === 'skywars') {
+				if(!args[1]) {
+					return message.reply(`you didn't specify a user to lookup!`)
+				}
+	
+				request(swurl, options, (error, res, body) => {
+					if(error) { // Error handler
+						console.log(error) // Log the error
+						return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.`) // Let the user know something went wrong
+					};
+	
+					if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
+						var data = JSON.stringify(body)
+						const swEmbed = new Discord.MessageEmbed() // New Embed
+						.setTitle('PlagueCraft SkyWars Lookup')
+						.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
+						.setURL(`https://api.plaguecraft.xyz/v0/sw/'${user}'`)
+						.setColor(`#c7002e`)
+						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
+						.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+						.setFooter(`PCN Lookup`)
+						.setTimestamp();
+	
+						console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
+						return message.channel.send(swEmbed);
+				}
+			})
+		}
+
+		if (args[0] === 'econ') {
+			if(!args[1]) {
+				return message.reply(`you didn't specify a user to lookup!`)
+			}
+
+			request(econurl, options, (error, res, body) => {
+				if(error) { // Error handler
+					console.log(error) // Log the error
+					return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.`) // Let the user know something went wrong
+				};
+
+				if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
+					var data = JSON.stringify(body)
+					const econEmbed = new Discord.MessageEmbed() // New Embed
+					.setTitle('PlagueCraft Economy Lookup')
+					.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
+					.setURL(`https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'`)
+					.setColor(`#c7002e`)
+					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
+					.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+					.setFooter(`PCN Lookup`)
+					.setTimestamp();
+
+					console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
+					return message.channel.send(econEmbed);
+
+				}
+			})} else if (args[0] === 'sw') {
+				
+				if(!args[1]) {
+					return message.reply(`you didn't specify a user to lookup!`)
+				}
+	
+				request(swurl, options, (error, res, body) => {
+					if(error) { // Error handler
+						console.log(error) // Log the error
+						return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.`) // Let the user know something went wrong
+					};
+	
+					if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
+						var data = JSON.stringify(body)
+						const swEmbed = new Discord.MessageEmbed() // New Embed
+						.setTitle('PlagueCraft SkyWars Lookup')
+						.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
+						.setURL(`https://api.plaguecraft.xyz/v0/sw/'${user}'`)
+						.setColor(`#c7002e`)
+						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
+						.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+						.setFooter(`PCN Lookup`)
+						.setTimestamp();
+	
+						console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
+						return message.channel.send(swEmbed);
+						
+					}
+				})
+			}
+
 	}
-	else if (args[0] === 'econ') { // Make sure user provided Minecraft Username
-			if(!args[1]) {
-				return message.reply(`you didn't specify a user to lookup in our REST API!`)
-			}
-
-		const user = args.slice(1).join(' '); // Cut the "econ" off so user can be combined to the URL correctly.
-        
-
-let url = `https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'`; // Define the URL and compile the args into it
-console.log(url)
-
-let options = {json: true};
-
-request(url, options, (error, res, body) => { // Get everything into variables n stuff
-    if (error) { // If err is anything other than 200 OK, then..
-        console.log(`REST call = err ETIMEDOUT`)
-        return message.channel.send(`I'm having trouble receiving data from the REST API. Please contact the PlagueCraft Network Web Force (https://plaguecraft.xyz/directory).\nTo help us diagnose this, please pass this information on: ETIMEDOUT > services.plaguecraft.xyz. The API failed to respond.`)
-    };
-
-    if (!error && res.statusCode == 200) { // If the response = 200 OK, then..
-        var data = JSON.stringify(body)
-        const econEmbed = new Discord.MessageEmbed() // Generic Embed making
-		    .setTitle('PlagueCraft Network Economy Lookup')
-		    .setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-		    .setColor('#c7002e')
-            .setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-		    .setDescription(`Our backend returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
-		    .setFooter('PCN Backend')
-		    .setTimestamp();
-      	
-        message.channel.send(econEmbed);
-        console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
-
-		    } 
-
-        })} else if (args[0] === 'skywars') { // Same niche ^
-			if(!args[1]) {
-				return message.reply(`you didn't specify a user to lookup in our REST API!`);
-			}
-
-			const user = args.slice(1).join(' ');
-
-let url = `https://api.plaguecraft.xyz/v0/sw/'${user}'`; // aaaaaand continues on but make it skywars
-
-let options = {json: true};
-
-request(url, options, (error, res, body) => {
-    if (error) {
-        console.log(`REST call = err ETIMEDOUT`)
-        return message.channel.send(`There was an error getting data from the REST API. Please contact the PlagueCraft Network Web Force (https://plaguecraft.xyz/directory).\nTo help us diagnose this, please pass this information on: services.plaguecraft.xyz did not respond in time for the request to complete.`)
-    };
-
-    if (!error && res.statusCode == 200) {
-        var string = JSON.stringify(body);
-           const econEmbed = new Discord.MessageEmbed()
-           .setTitle('PlagueCraft Network SkyWars Lookup')
-		    .setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-		    .setColor('#c7002e')
-            .setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-		    .setDescription(`Our backend returned the following information!\n\n${string}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
-		    .setFooter('PCN Backend')
-		    .setTimestamp();
-      	
-        message.channel.send(econEmbed);
-        console.log(`${message.author} got the following data from the REST API:`, string)
-    			    };
-			    });
-            } else if (args[0] === 'sw') {
-				if(!args[1]) {
-					return message.reply(`you didn't specify a user to lookup in our REST API!`);
-				}
-	
-				const user = args.slice(1).join(' ');
-	
-	let url = `https://api.plaguecraft.xyz/v0/sw/'${user}'`; // aaaaaand continues on but make it skywars
-	
-	let options = {json: true};
-	
-	request(url, options, (error, res, body) => {
-		if (error) {
-			console.log(`REST call = err ETIMEDOUT`)
-			return message.channel.send(`There was an error getting data from the REST API. Please contact the PlagueCraft Network Web Force (https://plaguecraft.xyz/directory).\nTo help us diagnose this, please pass this information on: services.plaguecraft.xyz did not respond in time for the request to complete.`)
-		};
-	
-		if (!error && res.statusCode == 200) {
-			var string = JSON.stringify(body);
-			   const econEmbed = new Discord.MessageEmbed()
-			   .setTitle('PlagueCraft Network SkyWars Lookup')
-				.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-				.setColor('#c7002e')
-				.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-				.setDescription(`Our backend returned the following information!\n\n${string}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
-				.setFooter('PCN Backend')
-				.setTimestamp();
-			  
-			message.channel.send(econEmbed);
-			console.log(`${message.author} got the following data from the REST API:`, string)
-						};
-					});
-			} else if (args[0] === 'economy') {
-				if(!args[1]) {
-					return message.reply(`you didn't specify a user to lookup in our REST API!`);
-				}
-	
-				const user = args.slice(1).join(' ');
-	
-	let url = `https://api.plaguecraft.xyz/v0/xconomy/bal/'${user}'`; // aaaaaand continues on but make it skywars
-	
-	let options = {json: true};
-	
-	request(url, options, (error, res, body) => {
-		if (error) {
-			console.log(`REST call = err ETIMEDOUT`)
-			return message.channel.send(`There was an error getting data from the REST API. Please contact the PlagueCraft Network Web Force (https://plaguecraft.xyz/directory).\nTo help us diagnose this, please pass this information on: services.plaguecraft.xyz did not respond in time for the request to complete.`)
-		};
-	
-		if (!error && res.statusCode == 200) {
-			var string = JSON.stringify(body);
-			   const econEmbed = new Discord.MessageEmbed()
-			   .setTitle('PlagueCraft Network Economy Lookup')
-				.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-				.setColor('#c7002e')
-				.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-				.setDescription(`Our backend returned the following information!\n\n${string}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
-				.setFooter('PCN Backend')
-				.setTimestamp();
-			  
-			message.channel.send(econEmbed);
-			console.log(`${message.author} got the following data from the REST API:`, string)
-						};
-					});
-			}
-    }
 }
