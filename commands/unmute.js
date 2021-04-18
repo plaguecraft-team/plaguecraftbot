@@ -5,20 +5,21 @@ module.exports = {
     description: "PCN Unmute Command",
     execute(message, args, Discord, client) {
             const target = message.mentions.users.first();
-            if(!args.length) {
-                return message.reply(`You didn't specify a user to unmute!`);
-            }
         
             if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			    return message.channel.send('You do not have the permissions to run this command!')
 		    }
-
-            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-                return message.channel.send(`${message.author.name} is too high in the role hierarchy to unmute!`)
+        
+            if(!args.length) {
+                return message.reply(`You didn't specify a user to unmute!`);
             }
-
+        
             if (target === message.author) { // Makes sure the user isn't the same as the message author
                 return message.channel.send(`How are you expecting to unmute yourself when you can't even mute yourself in the first place?`)
+            }
+
+            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+                return message.channel.send(`${target} is too high in the role hierarchy to unmute!`)
             }
 
         if(target){

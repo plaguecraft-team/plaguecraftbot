@@ -3,27 +3,28 @@ module.exports = {
     description: "PCN Mute Command",
     execute(message, args, Discord, client) {
         
+        const target = message.mentions.users.first();
+
             if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
                 return message.channel.send('You do not have the permissions to run this command!')
             }
-            
-            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-                return message.channel.send(`${message.author.name} is too high in the role hierarchy to mute!`)
-            }
 
-        const target = message.mentions.users.first();
-
-        if(!args[0]) {
+            if(!args[0]) {
                 return message.reply(`you didn't specify a user!`);
             }
 
-        if (target === message.author) {
+
+            if (target === message.author) {
                 return message.channel.send(`You can't mute yourself, ${message.author}!`)
             }
+            
+            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+                return message.channel.send(`${target} is too high in the role hierarchy to mute!`)
+            }
 
-        if(!args[1]) {
-            return message.reply(`you didn't specify a reason!`)
-        }
+            if(!args[1]) {
+                return message.reply(`you didn't specify a reason!`)
+            }
 
         if (target) {
             const reason = args.slice(1).join(' ');

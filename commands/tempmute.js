@@ -4,23 +4,23 @@ module.exports = {
 	execute(message, args, Discord, client, ms) {
 
         const target = message.mentions.users.first(); // Get the mentioned user
+        
+        if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){ // Returns a message if the user is not a mod
+            return message.channel.send('You do not have the permissions to run this command!')
+                    }
 
-                    if(!args[0]) {
-                        return message.reply(`you need to specify a user!`)
-                    } // User check
-
-                    if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){ // Returns a message if the user is not a mod
-			return message.channel.send('You do not have the permissions to run this command!')
-		}
+        if(!args[0]) { // User check
+            return message.reply(`you need to specify a user!`)
+                    } 
+        
+        if (member === message.author) { // Makes sure the user isn't the same as the message author
+            return message.channel.send(`You can't tempmute yourself, ${message.author}!`)
+                    }
 
         if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-			return message.channel.send(`${message.author.name} is too high in the role hierarchy to mute!`)
+			return message.channel.send(`${target} is too high in the role hierarchy to mute!`)
 		}
-
-            if (member === message.author) { // Makes sure the user isn't the same as the message author
-                return message.channel.send(`You can't tempmute yourself, ${message.author}!`)
-            }
-
+            
 			if(!args[1]) { // Time check
 				return message.reply(`you need to specify a time to mute this user for!`)
 			}

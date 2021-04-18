@@ -5,25 +5,25 @@ module.exports = {
 
 		const member = message.mentions.users.first();
 
-			if(!args[0]) {
-				return message.reply('you need to specify a user to kick!')
-			}
-
 		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')
 		}
 
-		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-			return message.channel.send(`${message.author.name} is too high in the role hierarchy to kick!`)
+		if (member === message.author) {
+			return message.channel.send(`You can't kick yourself, ${message.author}!`)
 		}
 
-			if (member === message.author) {
-				return message.channel.send(`You can't kick yourself, ${message.author}!`)
-			}
+		if(!args[0]) {
+			return message.reply('you need to specify a user to kick!')
+		}
 
-			if(!args[1]) {
-				return message.reply(`you need to specify why you're banning this user!`)
-			}
+		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+			return message.channel.send(`${member} is too high in the role hierarchy to kick!`)
+		}
+
+		if(!args[1]) {
+			return message.reply(`you need to specify why you're banning this user!`)
+		}
 
 		if(member) {
 			const reason = args.slice(1).join(' ');

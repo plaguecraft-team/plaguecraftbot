@@ -2,23 +2,23 @@ module.exports = {
 	name: 'ban',
 	description: 'PCN Ban Command',
 	execute(message, args, Discord, client) {
+
+		const member = message.mentions.users.first();
+
 		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')
 		}
 
-		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-			return message.channel.send(`${message.author.name} is too high in the role hierarchy to ban!`)
-		}
-
-
-			const member = message.mentions.users.first();
-		
-			if(!args[0]) {
+		if(!args[0]) {
 			return message.reply(`you need to specify a user to ban!`)
 		}
-		
-			if (member === message.author) {
+
+		if (member === message.author) {
 			return message.channel.send(`You can't ban yourself, ${message.author}!`)
+		}
+
+		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+			return message.channel.send(`${member} is too high in the role hierarchy to ban!`)
 		}
 
 			if(!args[1]) {
