@@ -1,0 +1,35 @@
+{
+  "name": "pcn-bot",
+  "version": "1.0.5",
+  "description": "A rewrite for the PlagueCraft Network Discord Bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plaguecraft-team/plaguecraftbot.git"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "discord.js"
+  ],
+  "author": "The PlagueCraft Network Development Team",
+  "url": "https://plaguecraft.xyz/bot-faq",
+  "email": "support@plaguecraft.xyz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plaguecraft-team/plaguecraftbot/issues",
+    "email": "webforce@plaguecraft.xyz"
+  },
+  "homepage": "https://github.com/plaguecraft-team/plaguecraftbot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^8.2.0",
+    "minecraft-information": "^0.3.0",
+    "minecraft-server-util": "^3.4.4",
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2"
+  }
+}

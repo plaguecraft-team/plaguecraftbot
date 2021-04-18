@@ -1,8 +1,11 @@
 module.exports = {
 	name:'mod-help',
+	aliases: ['mh'],
 	description: "PCN mod-help command",
 	execute(message, args, Discord, client) {
-		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			return message.channel.send('You do not have the permissions to run this command!')
+		}
 		const modEmbed = new Discord.MessageEmbed()
 		.setColor('#c7002e')
 		.setTitle('PlagueCraftBot Moderation Help')
@@ -13,10 +16,7 @@ module.exports = {
 		.setTimestamp()
 		.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
 
-		message.channel.send(`<@${message.author.id}>`)
 		message.reply(modEmbed)
-		} else{
-			message.reply('You do not have the permissions to use this command!')
-		}
+
 	}
 }

@@ -4,13 +4,23 @@ module.exports = {
     name: 'unmute',
     description: "PCN Unmute Command",
     execute(message, args, Discord, client) {
-
-        if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
-
+            const target = message.mentions.users.first();
             if(!args.length) {
                 return message.reply(`You didn't specify a user to unmute!`);
             }
-                    const target = message.mentions.users.first();
+        
+            if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			    return message.channel.send('You do not have the permissions to run this command!')
+		    }
+
+            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+                return message.channel.send(`${message.author.name} is too high in the role hierarchy to unmute!`)
+            }
+
+            if (target === message.author) { // Makes sure the user isn't the same as the message author
+                return message.channel.send(`How are you expecting to unmute yourself when you can't even mute yourself in the first place?`)
+            }
+
         if(target){
             
             let muteRole = message.guild.roles.cache.find(role => role.name === 'Muted');
@@ -36,10 +46,5 @@ module.exports = {
         } else{
             message.reply('I could not find that member!')
         }
-    } else{
-        message.reply('You do not have the permissions to use this command!')
-    }
-
-
     }
 }

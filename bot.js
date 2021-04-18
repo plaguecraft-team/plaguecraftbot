@@ -12,9 +12,6 @@ const request = require('request');
 const ms = require('ms');
 const util = require('minecraft-server-util');
 const mi = require('minecraft-information');
-const https = require('https');
-
-// const fetch = require('node-fetch'); - For a future update
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();
@@ -88,6 +85,8 @@ client.on('message', message =>{
 		client.commands.get('status').execute(message, args, Discord, client, util);
 	} else if (command === 'apis') {
 		client.commands.get('apis').execute(message, args, Discord, client);
+	} else if (command === 'mh') {
+		client.commands.get('mod-help').execute(message, args, Discord, client)
 	}
 })
 

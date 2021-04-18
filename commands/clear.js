@@ -4,7 +4,9 @@ module.exports = {
 	name: 'clear',
 	description: 'PCN Clear Command',
 	async execute(message, args, Discord, client) {
-		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+        if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			return message.channel.send('You do not have the permissions to run this command!')
+		}
 
         if(!args[0]) return message.reply("please enter the amount of messages to clear!");
         if(isNaN(args[0])) return message.reply("please use a real number!");
@@ -28,8 +30,6 @@ module.exports = {
             channel.send(purgeEmbed);
 
             console.log(`${message.author} has cleared ${args} messages!`)
-        })
-        }
-        
+        }) 
 	}
 }

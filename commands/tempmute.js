@@ -3,12 +3,23 @@ module.exports = {
 	description: "Tempmute command for timed mutes",
 	execute(message, args, Discord, client, ms) {
 
-		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){ // Makes sure the user is a mod
-			const target = message.mentions.users.first(); // Get the mentioned user
+        const target = message.mentions.users.first(); // Get the mentioned user
 
-			if(!args[0]) {
-				return message.reply(`you need to specify a user!`)
-			} // User check
+                    if(!args[0]) {
+                        return message.reply(`you need to specify a user!`)
+                    } // User check
+
+                    if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){ // Returns a message if the user is not a mod
+			return message.channel.send('You do not have the permissions to run this command!')
+		}
+
+        if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+			return message.channel.send(`${message.author.name} is too high in the role hierarchy to mute!`)
+		}
+
+            if (member === message.author) { // Makes sure the user isn't the same as the message author
+                return message.channel.send(`You can't tempmute yourself, ${message.author}!`)
+            }
 
 			if(!args[1]) { // Time check
 				return message.reply(`you need to specify a time to mute this user for!`)
@@ -40,7 +51,6 @@ module.exports = {
             setTimeout(function () {
                 memberTarget.roles.remove(muteRole.id); // Removes the role when time is up.
             }, ms(args[1]));
-			}
 		}
 	}
 }

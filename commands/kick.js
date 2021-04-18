@@ -3,11 +3,22 @@ module.exports = {
 	description: "PCN Kick Command",
 	execute(message, args, Discord, client) {
 
-		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")) {
-			const member = message.mentions.users.first();
+		const member = message.mentions.users.first();
 
 			if(!args[0]) {
 				return message.reply('you need to specify a user to kick!')
+			}
+
+		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			return message.channel.send('You do not have the permissions to run this command!')
+		}
+
+		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
+			return message.channel.send(`${message.author.name} is too high in the role hierarchy to kick!`)
+		}
+
+			if (member === message.author) {
+				return message.channel.send(`You can't kick yourself, ${message.author}!`)
 			}
 
 			if(!args[1]) {
@@ -18,7 +29,7 @@ module.exports = {
 			const reason = args.slice(1).join(' ');
 			const memberTarget = message.guild.members.cache.get(member.id);
 			memberTarget.kick();
-			console.log(`UID ${memberTarget} has been kicked!`)
+			console.log(`User ${memberTarget} has been kicked for ${reason}`)
 
 			const kickEmbed = new Discord.MessageEmbed()
 			.setTitle('Kicked!')
@@ -35,9 +46,5 @@ module.exports = {
 		} else {
 			message.channel.send(`That user could not be kicked from the server!`)
 		} 
-
-		} else {
-			message.reply('You do not have sufficient permissions to use this command.')
-		}
 	}
 }
