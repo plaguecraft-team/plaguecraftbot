@@ -1,9 +1,7 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'help',
 	description: "PCN Help Command",
-	execute(messages, args) {
+	execute(client, message, args, Discord) {
 
 		const helpEmbed = new Discord.MessageEmbed()
 		.setColor('#c7002e')
@@ -15,6 +13,6 @@ module.exports = {
 		.setTimestamp()
 		.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
 
-		messages.channel.send(helpEmbed);
+		message.channel.send(helpEmbed);
 	}
 }

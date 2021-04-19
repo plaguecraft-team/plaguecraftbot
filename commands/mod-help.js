@@ -2,7 +2,7 @@ module.exports = {
 	name:'mod-help',
 	aliases: ['mh'],
 	description: "PCN mod-help command",
-	execute(message, args, Discord, client) {
+	execute(client, message, args, Discord) {
 		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')
 		}

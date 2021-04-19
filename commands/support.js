@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'support',
 	description: "PCN Support - Returns support topics",
-	execute(message, args, Discord, client) {
+	execute(client, message, args, Discord) {
 
 		if(!args[0]) {
 			return message.channel.send(`You need to specify a support topic, ${message.author}.\n*PS: Don't know what our topics are? Give **pcn!support topics** a run!*`);

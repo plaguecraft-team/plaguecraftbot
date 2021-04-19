@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'suggest',
 	description: "Suggestions from people",
-    async execute(message, args, Discord, client) {
+    async execute(client, message, args, Discord) {
         
         const channel = client.channels.cache.find(channel => channel.name === "suggestions"); // Find the suggestions channel
 

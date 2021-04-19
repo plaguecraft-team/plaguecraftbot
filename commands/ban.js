@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'ban',
 	description: 'PCN Ban Command',
-	execute(message, args, Discord, client) {
+	execute(client, message, args, Discord) {
 
 		const member = message.mentions.users.first();
 

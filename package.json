@@ -30,7 +30,6 @@
     "minecraft-information": "^0.3.0",
     "minecraft-server-util": "^3.4.4",
     "ms": "^2.1.3",
-    "node-fetch": "^2.6.1",
     "request": "^2.88.2"
   }
 }

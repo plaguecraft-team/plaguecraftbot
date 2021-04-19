@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'kick',
 	description: "PCN Kick Command",
-	execute(message, args, Discord, client) {
+	execute(client, message, args, Discord) {
 
 		const member = message.mentions.users.first();
 

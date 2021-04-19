@@ -1,7 +1,7 @@
 module.exports = {
     name: 'apis',
     description: 'Lists all of the APIs and NPM Packages this project uses',
-    execute(message, args, Discord, client) {
+    execute(client, message, args, Discord) {
 
         const apiEmbed = new Discord.MessageEmbed()
         .setTitle(`PlagueCraftBot APIs`)
