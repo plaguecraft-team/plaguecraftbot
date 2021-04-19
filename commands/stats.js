@@ -4,7 +4,7 @@ const mi = require('minecraft-information');
 module.exports = {
 	name: 'stats',
 	description: 'Returns player statistics',
-	async execute(client, message, args, Discord) {
+	async execute(client, Discord, message, args) {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
 		let econurl = `https://api.plaguecraft.xyz/v0/smp/bal/'${user}'` // Economy API URL

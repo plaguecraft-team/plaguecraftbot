@@ -1,7 +1,7 @@
 module.exports = {
     name: 'unmute',
     description: "PCN Unmute Command",
-    execute(client, message, args, Discord) {
+    execute(client, Discord, message, args) {
             const target = message.mentions.users.first();
         
             if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){

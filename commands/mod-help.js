@@ -1,11 +1,12 @@
 module.exports = {
 	name:'mod-help',
-	aliases: ['mh'],
 	description: "PCN mod-help command",
-	execute(client, message, args, Discord) {
-		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+	execute(client, Discord, message, args) {
+		
+        if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')
 		}
+
 		const modEmbed = new Discord.MessageEmbed()
 		.setColor('#c7002e')
 		.setTitle('PlagueCraftBot Moderation Help')

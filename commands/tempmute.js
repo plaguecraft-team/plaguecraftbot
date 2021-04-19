@@ -1,9 +1,7 @@
-const ms = require('ms');
-
 module.exports = {
 	name: 'tempmute',
 	description: "Tempmute command for timed mutes",
-	execute(client, message, args, Discord) {
+	execute(client, Discord, message, args, ms) {
 
         const target = message.mentions.users.first(); // Get the mentioned user
         

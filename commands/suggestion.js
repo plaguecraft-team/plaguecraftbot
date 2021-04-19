@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'suggest',
 	description: "Suggestions from people",
-    async execute(client, message, args, Discord) {
+    async execute(client, Discord, message, args, ) {
         
         const channel = client.channels.cache.find(channel => channel.name === "suggestions"); // Find the suggestions channel
 
@@ -11,6 +11,10 @@ module.exports = {
             return message.channel.send('The suggestion channel does not exist! Please check with the admins of this server.');
         } else {
 
+            if(!args[0]) {
+                return message.channel.send(`You need to provide something to suggest, ${message.author}!`)
+            }
+            
             let messageArgs = args.join(' '); // Same thing as stats.js, but make it not have ',,,' in between
 
             const suggestionEmbed = new Discord.MessageEmbed() // embed

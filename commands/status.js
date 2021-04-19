@@ -3,7 +3,7 @@ const util = require('minecraft-server-util');
 module.exports = {
 	name: 'status',
 	description: "Gets the status of supplied server",
-	execute(client, message, args, Discord) {
+	execute(client, Discord, message, args, util) {
 
         util.status(`play.plaguecraft.xyz`).then((response) =>{ // Server URL
 

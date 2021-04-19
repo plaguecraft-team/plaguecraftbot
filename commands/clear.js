@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'clear',
 	description: 'PCN Clear Command',
-	async execute(client, message, args, Discord) {
+	async execute(client, Discord, message, args) {
         if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')
 		}

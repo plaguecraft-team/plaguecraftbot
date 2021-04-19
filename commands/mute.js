@@ -1,7 +1,7 @@
 module.exports = {
     name: 'mute',
     description: "PCN Mute Command",
-    execute(client, message, args, Discord) {
+    execute(client, Discord, message, args) {
         
         const target = message.mentions.users.first();
 

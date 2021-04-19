@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'report-resp',
 	description: 'Gives mods the ability to DM users via the bot',
-	execute(client, message, args, Discord) {
+	execute(client, Discord, message, args) {
 		
 		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')

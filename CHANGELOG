@@ -1,15 +1,5 @@
-A lot of cool stuff listed here ;)
+UPDATES
 
-4/18 UPDATES
-#1 - Updated our role checks to *actually* return insufficient perms errors
-#2 - Updated how some of the commands caught errors (we actually experienced issues where the entire bot would crash when we attempted to
-ban ourselves lmao)
-#3 - New checks also make sure that anyone with the ADMINISTRATOR or KICK_MEMBERS perms cannot be banned/kicked (reasoning is in the last line lmfao)
-#4 - Overhauled our moderation commands entirely
-#5 - Appended PCN API Line in api.js
-#6 - Removed packages that weren't needed anymore
-#7 - Updated the changelog file!
-#8 - Incl. package.json for easy install!
-#9 - Also added Linux (.sh) and Windows (.bat) files to easily obtain this & update!
-
-IMPORTANT - We've updated the ENTIRE bot and how events are handled! Check it out!!!!!!!!
+#1 - Reverted to our previous handler since we broke the bot with the new one lol
+#2 - Rewrote the bot.js file as a whole
+#3 - Improved install scripts 
