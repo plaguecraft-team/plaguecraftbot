@@ -7,8 +7,8 @@ module.exports = {
 	async execute(client, Discord, message, args) {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
-		let econurl = `https://api.plaguecraft.xyz/v0/smp/bal/'${user}'` // Economy API URL
-		let swurl = `https://api.plaguecraft.xyz/v0/sw/'${user}'` // SkyWars API URL
+		let econurl = `https://api.plaguecraft.xyz/v0/smp/bal/${user}` // Economy API URL
+		let swurl = `https://api.plaguecraft.xyz/v0/sw/${user}` // SkyWars API URL
 		let options = {json: true}; // request module options
 
 		if(!args[0]) { // Checks if the user did not add a gamemode or username
@@ -30,7 +30,7 @@ module.exports = {
 					var data = JSON.stringify(body)
 					const econEmbed = new Discord.MessageEmbed() // New Embed
 					.setTitle('PlagueCraft Economy Lookup')
-					.setURL(`https://api.plaguecraft.xyz/v0/smp/bal/'${user}'`)
+					.setURL(econurl)
 					.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
 					.setColor(`#c7002e`)
 					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
@@ -41,7 +41,9 @@ module.exports = {
 					console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
 					return message.channel.send(econEmbed);
 				}
-			})} else if (!args[0] === 'skywars') {
+			})} 
+			
+			if (!args[0] === 'skywars') {
 				if(!args[1]) {
 					return message.reply(`you didn't specify a user to lookup!`)
 				}
@@ -57,7 +59,7 @@ module.exports = {
 						const swEmbed = new Discord.MessageEmbed() // New Embed
 						.setTitle('PlagueCraft SkyWars Lookup')
 						.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-						.setURL(`https://api.plaguecraft.xyz/v0/sw/'${user}'`)
+						.setURL(swurl)
 						.setColor(`#c7002e`)
 						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
 						.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
@@ -86,7 +88,7 @@ module.exports = {
 					const econEmbed = new Discord.MessageEmbed() // New Embed
 					.setTitle('PlagueCraft Economy Lookup')
 					.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-					.setURL(`https://api.plaguecraft.xyz/v0/smp/bal/'${user}'`)
+					.setURL(econurl)
 					.setColor(`#c7002e`)
 					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
 					.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
@@ -114,7 +116,7 @@ module.exports = {
 						const swEmbed = new Discord.MessageEmbed() // New Embed
 						.setTitle('PlagueCraft SkyWars Lookup')
 						.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-						.setURL(`https://api.plaguecraft.xyz/v0/sw/'${user}'`)
+						.setURL(swurl)
 						.setColor(`#c7002e`)
 						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
 						.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)

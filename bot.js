@@ -9,6 +9,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('minecraft-server-util');
 const request = require('request');
+const ms = require('ms');
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();
@@ -71,13 +72,15 @@ for(const file of commandFiles){
             client.commands.get('tempmute').execute(client, Discord, message, args, ms);
         } else if (command === 'clear') {
             client.commands.get('clear').execute(client, Discord, message, args);
-        } else if (command === 'respond') {
+        } else if (command === 'message') {
             client.commands.get('report-resp').execute(client, Discord, message, args);
         } else if (command === 'unmute') {
             client.commands.get('unmute').execute(client, Discord, message, args);
         } else if (command === 'mod-help') {
             client.commands.get('mod-help').execute(client, Discord, message, args);
-            
+        } else if (command === 'tempban') {
+            client.commands.get('tempban').execute(client, Discord, message, args, ms);
+
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.commands.get('mod-help').execute(client, Discord, message, args);
