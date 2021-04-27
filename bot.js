@@ -10,6 +10,7 @@ const fs = require('fs');
 const util = require('minecraft-server-util');
 const request = require('request');
 const ms = require('ms');
+const mi = require('minecraft-information');
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();

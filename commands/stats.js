@@ -1,14 +1,11 @@
-const request = require('request');
-const mi = require('minecraft-information');
-
 module.exports = {
 	name: 'stats',
 	description: 'Returns player statistics',
-	async execute(client, Discord, message, args) {
+	async execute(client, Discord, message, args, request) {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
-		let econurl = `https://api.plaguecraft.xyz/v0/smp/bal/${user}` // Economy API URL
-		let swurl = `https://api.plaguecraft.xyz/v0/sw/${user}` // SkyWars API URL
+		let econurl = `https://api.plaguecraft.xyz/v1/smp/bal?player=${user}` // Economy API URL
+		let swurl = `https://api.plaguecraft.xyz/v1/sw/user?player=${user}` // SkyWars API URL
 		let options = {json: true}; // request module options
 
 		if(!args[0]) { // Checks if the user did not add a gamemode or username
@@ -42,35 +39,6 @@ module.exports = {
 					return message.channel.send(econEmbed);
 				}
 			})} 
-			
-			if (!args[0] === 'skywars') {
-				if(!args[1]) {
-					return message.reply(`you didn't specify a user to lookup!`)
-				}
-	
-				request(swurl, options, (error, res, body) => {
-					if(error) { // Error handler
-						console.log(error) // Log the error
-						return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.`) // Let the user know something went wrong
-					};
-	
-					if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
-						var data = JSON.stringify(body)
-						const swEmbed = new Discord.MessageEmbed() // New Embed
-						.setTitle('PlagueCraft SkyWars Lookup')
-						.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
-						.setURL(swurl)
-						.setColor(`#c7002e`)
-						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-						.setDescription(`Our API returned the following information!\n\n${data}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
-						.setFooter(`PCN Lookup`)
-						.setTimestamp();
-	
-						console.log(`${message.author} got the following data from the REST API:`, data) // Log and send the data & embed.
-						return message.channel.send(swEmbed);
-				}
-			})
-		}
 
 		if (args[0] === 'econ') {
 			if(!args[1]) {
