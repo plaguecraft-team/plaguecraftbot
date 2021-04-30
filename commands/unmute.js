@@ -34,7 +34,7 @@ module.exports = {
             const unmuteEmbed = new Discord.MessageEmbed()
             
             .setTitle('Unmuted!')
-            .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
             .setDescription(`${message.author} has unmuted ${memberTarget}!`)
             .setColor('#03fc41')  
             .setFooter(`PCN Unmutes`)

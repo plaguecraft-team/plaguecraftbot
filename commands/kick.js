@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'kick',
 	description: "PCN Kick Command",
-	execute(client, Discord, message, args) {
+	execute(Discord, client, message, args) {
 
 		const member = message.mentions.users.first();
 
@@ -33,7 +33,7 @@ module.exports = {
 
 			const kickEmbed = new Discord.MessageEmbed()
 			.setTitle('Kicked!')
-			.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+			.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
 			.setDescription(`${message.author} has kicked ${memberTarget}!\n\nReason: "${reason}"`)
 			.setColor('#c7002e')
 			.setFooter(`PCN Kicks`)

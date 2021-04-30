@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="https://plaguecraft.xyz">
-	<img width="150" src="https://plaguecraft.xyz/assets/img/logo.png">
+	<img width="150" src="https://plaguecraft.xyz/storage/assets/img/logo.png">
 	</a>
 </p>
 

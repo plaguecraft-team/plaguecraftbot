@@ -32,7 +32,7 @@ module.exports = {
 
 			const banEmbed = new Discord.MessageEmbed()
 			.setTitle('Banned!')
-			.setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+			.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
 			.setDescription(`${message.author} has banned ${memberTarget}!\n\n Reason: "${reason}"`)
 			.setColor('#c7002e')
 			.setFooter(`PCN Bans`)

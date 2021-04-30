@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'report',
 	description: 'Allows someone to report a user',
-	execute(client, message, args, Discord) {
+	execute(Discord, client, message, args) {
 
 		const target = message.mentions.users.first();
 
@@ -21,7 +21,7 @@ module.exports = {
 		const reportEmbed = new Discord.MessageEmbed()
 		.setTitle(`Report!`)
 		.setColor(`#c7002e`)
-		.setThumbnail(`https://plaguecraft.xyz/assets/img/logo.png`)
+		.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
 		.setDescription(`${message.author} has reported ${target} for:\n "${reason}".\n\n**Target Users UID: ${target.id}**`)
 		.setFooter(`PCN Reports`)
 		.setTimestamp();

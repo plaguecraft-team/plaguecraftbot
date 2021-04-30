@@ -19,7 +19,7 @@ module.exports = {
 
             const purgeEmbed = new Discord.MessageEmbed()
             .setTitle('Messages purged!')
-            .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
             .setDescription(`${message.author} has purged ${args} messages!`)
             .setColor('#c7002e')
             .setFooter('PCN Bulk Clear')

@@ -40,7 +40,7 @@ module.exports = {
                 const muteEmbed = new Discord.MessageEmbed()
             
             .setTitle('Muted!')
-            .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
             .setDescription(`${message.author} has muted ${memberTarget}!\nReason: "${reason}"`)
             .setColor('#c7002e')
             .setFooter('PCN Mutes')

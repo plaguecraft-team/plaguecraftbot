@@ -11,6 +11,7 @@ const util = require('minecraft-server-util');
 const request = require('request');
 const ms = require('ms');
 const mi = require('minecraft-information');
+const minecraftPlayer = require('minecraft-player');
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();
@@ -59,7 +60,7 @@ for(const file of commandFiles){
         } else if (command === 'report') {
             client.commands.get('report').execute(client, Discord, message, args);
         } else if (command === 'stats') {
-            client.commands.get('stats').execute(client, Discord, message, args, request);
+            client.commands.get('stats').execute(client, Discord, message, args, request, minecraftPlayer);
         } else if (command === 'status') {
             client.commands.get('status').execute(client, Discord, message, args, util);
             // Moderation

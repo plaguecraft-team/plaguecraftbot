@@ -18,7 +18,7 @@ module.exports = {
 
         const ticketEmbed = new Discord.MessageEmbed() // Shoot the team a ticket notification
             .setTitle('Ticket Notification!')
-            .setThumbnail('https://plaguecraft.xyz/assets/img/logo.png')
+            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
             .setDescription(`${message.author} has created a new ticket!`)
             .setColor('#03fc41')  
 
