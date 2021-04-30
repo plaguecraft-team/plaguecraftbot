@@ -51,7 +51,7 @@ module.exports = {
 			request(econurl, options, (error, res, body) => {
 				if(error) { // Error handler
 					console.log(error) // Log the error
-					return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.\nREMEMBER: You'll need to use your Mojang UUID for looking up Econ stats due to plugin constraints.`) // Let the user know something went wrong
+					return message.channel.send(`I'm having trouble receiving data from the API. Please open a ticket to the PCN Team.`) // Let the user know something went wrong
 				};
 
 				if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
