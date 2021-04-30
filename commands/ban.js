@@ -13,12 +13,12 @@ module.exports = {
 			return message.reply(`you need to specify a user to ban!`)
 		}
 
-		if (member === message.author) {
-			return message.channel.send(`You can't ban yourself, ${message.author}!`)
+		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			return message.channel.send(`You can't ban someone who's on your level! What are you crazy??`)
 		}
 
-		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-			return message.channel.send(`${member} is too high in the role hierarchy to ban!`)
+		if (member === message.author) {
+			return message.channel.send(`You can't ban yourself, ${message.author}!`)
 		}
 
 			if(!args[1]) {
@@ -41,7 +41,7 @@ module.exports = {
 			memberTarget.ban();
 			message.channel.send(`${memberTarget} has been banned.`)
 			console.log(`UID ${memberTarget} has been banned! Reason: "${reason}"`)
-			const channel = client.channels.cache.find(channel => channel.name === "punishments")
+			const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 				
 				channel.send(banEmbed)
 

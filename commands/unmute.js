@@ -7,6 +7,10 @@ module.exports = {
             if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			    return message.channel.send('You do not have the permissions to run this command!')
 		    }
+
+            if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			    return message.channel.send(`You can't unmute someone who's on your level! What are you crazy??`)
+		    }
         
             if(!args.length) {
                 return message.reply(`You didn't specify a user to unmute!`);
@@ -14,10 +18,6 @@ module.exports = {
         
             if (target === message.author) { // Makes sure the user isn't the same as the message author
                 return message.channel.send(`How are you expecting to unmute yourself when you can't even mute yourself in the first place?`)
-            }
-
-            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-                return message.channel.send(`${target} is too high in the role hierarchy to unmute!`)
             }
 
         if(target){
@@ -29,7 +29,7 @@ module.exports = {
             message.channel.send(`${memberTarget} has been unmuted.`)  
             console.log(`UID ${memberTarget} has been unmuted!`)     
             
-            const channel = client.channels.cache.find(channel => channel.name === "punishments")
+            const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 
             const unmuteEmbed = new Discord.MessageEmbed()
             

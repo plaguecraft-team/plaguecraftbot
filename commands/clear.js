@@ -25,7 +25,7 @@ module.exports = {
             .setFooter('PCN Bulk Clear')
             .setTimestamp();
 
-            const channel = client.channels.cache.find(channel => channel.name === "messages")
+            const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 
             channel.send(purgeEmbed);
 

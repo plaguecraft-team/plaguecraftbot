@@ -5,7 +5,7 @@ module.exports = {
 	description: "Creates a support ticket via Discord",
 	async execute(client, Discord, message, args) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`); // Define how to create the channel
-        channel.setParent('832950930579914854'); // Category ID of the channel 
+        channel.setParent('837797524244004864'); // Category ID of the channel 
 
         channel.updateOverwrite(message.guild.id, {
             SEND_MESSAGE: false,

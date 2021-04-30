@@ -9,6 +9,10 @@ module.exports = {
                 return message.channel.send('You do not have the permissions to run this command!')
             }
 
+            if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			    return message.channel.send(`You can't mute someone who's on your level! What are you crazy??`)
+		    }
+
             if(!args[0]) {
                 return message.reply(`you didn't specify a user!`);
             }
@@ -16,10 +20,6 @@ module.exports = {
 
             if (target === message.author) {
                 return message.channel.send(`You can't mute yourself, ${message.author}!`)
-            }
-            
-            if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-                return message.channel.send(`${target} is too high in the role hierarchy to mute!`)
             }
 
             if(!args[1]) {
@@ -46,11 +46,9 @@ module.exports = {
             .setFooter('PCN Mutes')
             .setTimestamp();
 
-            const channel = client.channels.cache.find(channel => channel.name === "punishments")
+            const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
             channel.send(muteEmbed)
-            const notichannel = client.channels.cache.find(channel => channel.name === "muted-notifications")
-                notichannel.send(`Hey ${memberTarget}, you were muted indefinitely for the reason: ${reason}\nIf you'd like to appeal, please follow the steps listed in the **muted-users** channel.`)
-                    return
+
         } else {
             message.channel.send(`I can't find that member!`);
         }

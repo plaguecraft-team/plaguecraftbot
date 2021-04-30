@@ -12,14 +12,14 @@ module.exports = {
         if(!args[0]) { // User check
             return message.reply(`you need to specify a user!`)
                     } 
+
+                    if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+                        return message.channel.send(`You can't mute someone who's on your level! What are you crazy??`)
+                    }
         
-        if (member === message.author) { // Makes sure the user isn't the same as the message author
+        if (target === message.author) { // Makes sure the user isn't the same as the message author
             return message.channel.send(`You can't tempmute yourself, ${message.author}!`)
                     }
-
-        if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-			return message.channel.send(`${target} is too high in the role hierarchy to mute!`)
-		}
             
 			if(!args[1]) { // Time check
 				return message.reply(`you need to specify a time to mute this user for!`)
@@ -42,11 +42,10 @@ module.exports = {
             .setFooter(`PCN Mutes`)
             .setTimestamp();
 
-            const channel = client.channels.cache.find(channel => channel.name === "punishments") // Define Channel
+            const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞") // Define Channel
             channel.send(muteTimedEmbed) // Send the embed to channel
 
-            const notitimedchannel = client.channels.cache.find(channel => channel.name === "muted-notifications") // Get the notification channel
-            notitimedchannel.send(`Hey ${memberTarget}, you were muted for ${ms(ms(args[1]))}.\nIf you'd like to appeal, please follow the steps listed in the **muted-users** channel.`) // Send the user a DM
+            memberTarget.send(`Hey ${memberTarget}, you were muted for ${ms(ms(args[1]))}.\nIf you'd like to appeal, please follow the steps listed in the **muted-users** channel.`) // Send the user a DM
  
             setTimeout(function () {
                 memberTarget.roles.remove(muteRole.id); // Removes the role when time is up.

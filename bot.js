@@ -41,6 +41,13 @@ for(const file of commandFiles){
      
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
+
+        process.on('unhandledRejection', error => {
+            console.error('Unhandled promise rejection:', error);
+            message.channel.send(`There was an internal bot error! Contact the developers via **pcn!ticket**.\nI've dispatched this to the developers DMs!`)
+
+            client.users.cache.get('288101780074528768').send(`Hey Awex! There was an error with the command ${message.author} just sent.\nHere's the error!\n**${error}**`);
+        });
      
         // General Commands
         if(command === 'help'){

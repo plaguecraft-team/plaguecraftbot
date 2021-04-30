@@ -9,16 +9,16 @@ module.exports = {
 			return message.channel.send('You do not have the permissions to run this command!')
 		}
 
+		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+			return message.channel.send(`You can't kick someone who's on your level! What are you crazy??`)
+		}
+
 		if (member === message.author) {
 			return message.channel.send(`You can't kick yourself, ${message.author}!`)
 		}
 
 		if(!args[0]) {
 			return message.reply('you need to specify a user to kick!')
-		}
-
-		if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("KICK_MEMBERS")) {
-			return message.channel.send(`${member} is too high in the role hierarchy to kick!`)
 		}
 
 		if(!args[1]) {
@@ -39,7 +39,7 @@ module.exports = {
 			.setFooter(`PCN Kicks`)
 			.setTimestamp();
 
-			const channel = client.channels.cache.find(channel => channel.name === "punishments")
+			const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 
 			channel.send(kickEmbed);
 
