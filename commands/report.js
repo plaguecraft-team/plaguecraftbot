@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'report',
 	description: 'Allows someone to report a user',
-	execute(Discord, client, message, args) {
+	execute(client, Discord, message, args) {
 
 		const target = message.mentions.users.first();
 
