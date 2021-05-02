@@ -1,13 +1,11 @@
 module.exports = {
 	name: 'stats',
 	description: 'Returns player statistics',
-	async execute(client, Discord, message, args, request, minecraftPlayer) {
+	async execute(client, Discord, message, args, request) {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
 
-		const { uuid } = await minecraftPlayer(`${args[1]}`); // Converts player name to UUID for the econ endpoint to actually function
-
-		let econurl = `https://api.plaguecraft.xyz/v1/smp/bal?uuid=${uuid}` // Economy API URL
+		let econurl = `https://api.plaguecraft.xyz/v1/smp/bal?player=${user}` // Economy API URL
 		let swurl = `https://api.plaguecraft.xyz/v1/sw/user?player=${user}` // SkyWars API URL
 		let options = {json: true}; // request module options
 
