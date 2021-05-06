@@ -5,7 +5,7 @@ module.exports = {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
 
-		let econurl = `https://api.plaguecraft.xyz/v1/smp/bal?player=${user}` // Economy API URL
+		let econurl = `https://api.plaguecraft.xyz/v1/smp/user?player=${user}` // Economy API URL
 		let swurl = `https://api.plaguecraft.xyz/v1/sw/user?player=${user}` // SkyWars API URL
 		let options = {json: true}; // request module options
 
