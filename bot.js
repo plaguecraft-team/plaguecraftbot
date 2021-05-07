@@ -34,10 +34,13 @@ for(const file of commandFiles){
 
     client.once('ready', () => {
         console.log('The PlagueCraft Discord Bot has now come online! Fear me mortals!');
+        client.user.setActivity("pcn!help", {
+            type: "LISTENING"
+          });
     });
 
     client.on('guildMemberAdd', async member => {
-        const channel = member.guild.channels.cache.get('837796493159039008');
+        const channel = member.guild.channels.cache.get('840335580730621982');
         if (!channel) return;
     
         const joinEmbed = new Discord.MessageEmbed()
