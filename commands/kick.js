@@ -9,10 +9,6 @@ module.exports = {
 			return message.channel.send('You do not have the permissions to run this command!')
 		}
 
-		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
-			return message.channel.send(`You can't kick someone who's on your level! What are you crazy??`)
-		}
-
 		if (member === message.author) {
 			return message.channel.send(`You can't kick yourself, ${message.author}!`)
 		}

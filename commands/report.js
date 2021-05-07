@@ -7,12 +7,10 @@ module.exports = {
 
 		if(!args[0]) {
 			return message.reply(`you didn't specify a user!`)
-			setTimeout(() => message.delete(), 5000);
 		}
 
 		if(!args[1]) {
 			return message.reply(`you didn't specify a reason!`)
-			setTimeout(() => message.delete(), 5000);
 		}
 
 		const reason = args.slice(1).join(' ');

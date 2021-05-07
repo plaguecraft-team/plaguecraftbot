@@ -9,10 +9,6 @@ module.exports = {
                 return message.channel.send('You do not have the permissions to run this command!')
             }
 
-            if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
-			    return message.channel.send(`You can't mute someone who's on your level! What are you crazy??`)
-		    }
-
             if(!args[0]) {
                 return message.reply(`you didn't specify a user!`);
             }

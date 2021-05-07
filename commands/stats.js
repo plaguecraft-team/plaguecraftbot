@@ -25,7 +25,7 @@ module.exports = {
 				};
 
 				if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
-					var data = JSON.stringify(body)
+					const data = JSON.stringify(body)
 					const econEmbed = new Discord.MessageEmbed() // New Embed
 					.setTitle('PlagueCraft Economy Lookup')
 					.setURL(econurl)
@@ -53,7 +53,7 @@ module.exports = {
 				};
 
 				if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
-					var data = JSON.stringify(body)
+					const data = JSON.stringify(body)
 					const econEmbed = new Discord.MessageEmbed() // New Embed
 					.setTitle('PlagueCraft Economy Lookup')
 					.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
@@ -81,7 +81,7 @@ module.exports = {
 					};
 	
 					if(!error && res.statusCode == 200) { // Double checking the response is 200 OK
-						var data = JSON.stringify(body)
+                        const data = JSON.stringify(body)
 						const swEmbed = new Discord.MessageEmbed() // New Embed
 						.setTitle('PlagueCraft SkyWars Lookup')
 						.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
@@ -98,6 +98,5 @@ module.exports = {
 					}
 				})
 			}
-
 	}
 }

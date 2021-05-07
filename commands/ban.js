@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'ban',
 	description: 'PCN Ban Command',
-	execute(client, Discord, message, args) {
+	async execute(client, Discord, message, args) {
 
 		const member = message.mentions.users.first();
 
@@ -13,10 +13,6 @@ module.exports = {
 			return message.reply(`you need to specify a user to ban!`)
 		}
 
-		if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
-			return message.channel.send(`You can't ban someone who's on your level! What are you crazy??`)
-		}
-
 		if (member === message.author) {
 			return message.channel.send(`You can't ban yourself, ${message.author}!`)
 		}
@@ -26,27 +22,38 @@ module.exports = {
 		}
 
 		if(member) {
-			const reason = args.slice(1).join(' ');
-			const memberTarget = message.guild.members.cache.get(member.id);
-			message.delete();
 
-			const banEmbed = new Discord.MessageEmbed()
-			.setTitle('Banned!')
-			.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
-			.setDescription(`${message.author} has banned ${memberTarget}!\n\n Reason: "${reason}"`)
-			.setColor('#c7002e')
-			.setFooter(`PCN Bans`)
-			.setTimestamp();
+			try {
+                const banList = await message.guild.fetchBans();
+              
+                const bannedUser = banList.find(user => user.id === `${memberTarget}`);
+              
+                if (bannedUser) {
+					return await message.channel.send(`That user is already banned.`);
+                }
+                else if (!bannedUser){
+                    const reason = args.slice(1).join(' ');
+					const memberTarget = message.guild.members.cache.get(member.id);
+					message.delete();
 
-			memberTarget.ban();
-			message.channel.send(`${memberTarget} has been banned.`)
-			console.log(`UID ${memberTarget} has been banned! Reason: "${reason}"`)
-			const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
-				
-				channel.send(banEmbed)
+					const banEmbed = new Discord.MessageEmbed()
+					.setTitle('Banned!')
+					.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
+					.setDescription(`${message.author} has banned ${memberTarget}!\n\n Reason: "${reason}"`)
+					.setColor('#c7002e')
+					.setFooter(`PCN Bans`)
+					.setTimestamp();
 
-		} else {
-			message.reply(`I couldn't ban that member!`)
+					memberTarget.ban();
+					message.channel.send(`${memberTarget} has been banned.`)
+					console.log(`UID ${memberTarget} has been banned! Reason: "${reason}"`)
+					const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
+						
+						channel.send(banEmbed)
+                }
+              } catch(err) {
+                console.error(err);
+              }
 		}
 	}
 }

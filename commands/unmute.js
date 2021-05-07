@@ -7,10 +7,6 @@ module.exports = {
             if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			    return message.channel.send('You do not have the permissions to run this command!')
 		    }
-
-            if(message.member.roles.cache.some(r => r.name === "Mod Bot User")){
-			    return message.channel.send(`You can't unmute someone who's on your level! What are you crazy??`)
-		    }
         
             if(!args.length) {
                 return message.reply(`You didn't specify a user to unmute!`);

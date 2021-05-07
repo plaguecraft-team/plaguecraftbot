@@ -11,6 +11,7 @@ const util = require('minecraft-server-util');
 const request = require('request');
 const ms = require('ms');
 const mi = require('minecraft-information');
+const minecraftPlayer = require('minecraft-player');
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();
@@ -34,8 +35,23 @@ for(const file of commandFiles){
     client.once('ready', () => {
         console.log('The PlagueCraft Discord Bot has now come online! Fear me mortals!');
     });
+
+    client.on('guildMemberAdd', async member => {
+        const channel = member.guild.channels.cache.get('837796493159039008');
+        if (!channel) return;
+    
+        const joinEmbed = new Discord.MessageEmbed()
+        .setTitle(`User joined!`)
+        .setDescription(`Welcome ${member} to the server!`)
+        .setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
+        .setColor(`#c7002e`)
+        .setFooter('PCN')
+        .setTimestamp();
+
+        channel.send(joinEmbed)
+    });
      
-    client.on('message', message =>{
+    client.on('message', async message =>{
         if(!message.content.startsWith(prefix) || message.author.bot) return;
      
         const args = message.content.slice(prefix.length).split(/ +/);
@@ -46,6 +62,10 @@ for(const file of commandFiles){
             message.channel.send(`There was an internal bot error! Contact the developers via **pcn!ticket**.\nI've dispatched this to the developers DMs!`)
 
             client.users.cache.get('288101780074528768').send(`Hey Awex! There was an error with the command ${message.author} just sent.\nHere's the error!\n**${error}**`);
+
+            const notisError = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞") // Define Channel
+
+            notisError.send(`The command that ${message.author} just sent errored out!\n**Error: ${error}**`);
         });
      
         // General Commands
@@ -65,6 +85,8 @@ for(const file of commandFiles){
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {
             client.commands.get('report').execute(client, Discord, message, args);
+        } else if (command === 'playerreport') {
+            client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer);
         } else if (command === 'stats') {
             client.commands.get('stats').execute(client, Discord, message, args, request);
         } else if (command === 'status') {
@@ -88,7 +110,8 @@ for(const file of commandFiles){
             client.commands.get('mod-help').execute(client, Discord, message, args);
         } else if (command === 'tempban') {
             client.commands.get('tempban').execute(client, Discord, message, args, ms);
-
+        } else if (command === 'unban') {
+            client.commands.get('unban').execute(client, Discord, message, args);
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.commands.get('mod-help').execute(client, Discord, message, args);
