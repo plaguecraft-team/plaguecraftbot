@@ -22,7 +22,7 @@ module.exports = {
             .setDescription(`${message.author} has created a new ticket!`)
             .setColor('#03fc41')  
 
-            const channelnoti = client.channels.cache.find(channel => channel.name === "notification") // Find the team's notification channel
+            const channelnoti = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞") // Find the team's notification channel
 
             channelnoti.send(ticketEmbed) // Send that embed
 
