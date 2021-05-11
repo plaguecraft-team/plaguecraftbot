@@ -5,13 +5,19 @@ module.exports = {
 	description: "Creates a support ticket via Discord",
 	async execute(client, Discord, message, args) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`); // Define how to create the channel
-        channel.setParent('837797524244004864'); // Category ID of the channel 
+        channel.setParent('774727207671037955'); // Category ID of the channel 
+        const role = message.guild.roles.cache.get("829362215286210591"); 
 
         channel.updateOverwrite(message.guild.id, {
             SEND_MESSAGE: false,
             VIEW_CHANNEL: false
         }); 
         channel.updateOverwrite(message.author, {
+            SEND_MESSAGE: true,
+            VIEW_CHANNEL: true    
+        });
+
+        channel.updateOverwrite(role, {
             SEND_MESSAGE: true,
             VIEW_CHANNEL: true    
         });
