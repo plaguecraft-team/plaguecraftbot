@@ -30,7 +30,7 @@ module.exports = {
             let memberTarget = message.guild.members.cache.get(target.id); // Get mentioned users UID
 
             memberTarget.ban(); // Add the muted role
-            message.channel.send(`${memberTarget} has been tempbanned for ${ms(ms(args[1]))}`); // Log the mute
+            message.react('✔️')
             console.log(`UID ${memberTarget} has been tempbanned for ${ms(ms(args[1]))}\nReason: ${reason}`) // Console log the mute
             const banTimedEmbed = new Discord.MessageEmbed() // Create and send an embed
 
@@ -43,6 +43,13 @@ module.exports = {
 
             const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞") // Define Channel
             channel.send(banTimedEmbed) // Send the embed to channel
+
+            try {
+                memberTarget.send(`You were banned in the PlagueCraft Network server.\nReason: ${reason}\nLength: ${ms(ms(args[1]))}`)
+            }
+            catch(err) {
+                console.log(`Could not send message to ${memberTarget}`)
+            }
  
             setTimeout(function () {
                 message.guild.members.unban(memberTarget.id); // Removes the role when time is up.

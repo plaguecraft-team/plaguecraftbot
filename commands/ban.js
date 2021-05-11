@@ -34,7 +34,7 @@ module.exports = {
                 else if (!bannedUser){
                     const reason = args.slice(1).join(' ');
 					const memberTarget = message.guild.members.cache.get(member.id);
-					message.delete();
+					
 
 					const banEmbed = new Discord.MessageEmbed()
 					.setTitle('Banned!')
@@ -45,11 +45,18 @@ module.exports = {
 					.setTimestamp();
 
 					memberTarget.ban();
-					message.channel.send(`${memberTarget} has been banned.`)
-					console.log(`UID ${memberTarget} has been banned! Reason: "${reason}"`)
+					message.react('✔️')
+					console.log(`User ${memberTarget} has been banned! Reason: "${reason}"`)
 					const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 						
 						channel.send(banEmbed)
+
+						try {
+							memberTarget.send(`You were banned in the PlagueCraft Network server.\nReason: ${reason}`)
+						}
+						catch(err) {
+							console.log(`Could not send message to ${memberTarget}`)
+						}
                 }
               } catch(err) {
                 console.error(err);

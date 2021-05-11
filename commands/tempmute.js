@@ -21,7 +21,7 @@ module.exports = {
 				return message.reply(`you need to specify a time to mute this user for!`)
 			}
 
-            if(!args[2]) { // Time check
+            if(!args[2]) { // Reason check
 				return message.reply(`you need to specify why you're muting this user!`)
 			}
 
@@ -31,7 +31,7 @@ module.exports = {
             let memberTarget = message.guild.members.cache.get(target.id); // Get mentioned users UID
 
             memberTarget.roles.add(muteRole.id); // Add the muted role
-            message.channel.send(`<@${memberTarget.user.id}> has been muted for ${ms(ms(args[1]))}.`); // Log the mute
+            message.react('✔️')
             console.log(`UID ${memberTarget} has been muted for ${ms(ms(args[1]))}\nReason: ${reason}`) // Console log the mute
             const muteTimedEmbed = new Discord.MessageEmbed() // Create and send an embed
 

@@ -33,18 +33,18 @@ module.exports = {
             await reactionMessage.react("🔒");
             await reactionMessage.react("⛔");
         }catch(err){
-            channel.send('There was an error reacting to the previous message, please contact RandomMafia11 and/or reach out via https://plaguecraft.xyz.'); // If it can't react, send this msg
+            channel.send('There was an error reacting to the previous message, please contact RandomMafia11 and/or reach out via https://plaguecraft.xyz/contact.'); // If it can't react, send this msg
             throw err;
         }
         
-        const collector = reactionMessage.createReactionCollector((reaction, user) => message.guild.members.cache.find((member) => member.id === user.id).hasPermission('ADMINISTRATOR'),
+        const collector = reactionMessage.createReactionCollector((reaction, user) => message.guild.members.cache.find((member) => member.id === user.id),
         { dispose: true}
         );
         
         collector.on('collect', (reaction, user) =>{
             switch (reaction.emoji.name){ // If the lock reaction is used, lock the ticket
                 case "🔒":
-                    channel.updateOverwrite(message.author.id, { SEND_MESSAGES: false});
+                    channel.updateOverwrite(message.author, { SEND_MESSAGES: false});
                     break;
                 case "⛔":
                     channel.send('This channel will be deleted in 5 seconds!') // If the delete reaction is used, then delete the channel

@@ -45,6 +45,13 @@ module.exports = {
             const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
             channel.send(muteEmbed)
 
+            try {
+                memberTarget.send(`You were muted indefinitely in the PlagueCraft Network server.\nReason: ${reason}`)
+            }
+            catch(err) {
+                console.log(`Could not send message to ${memberTarget}`)
+            }
+
         } else {
             message.channel.send(`I can't find that member!`);
         }

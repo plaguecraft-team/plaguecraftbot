@@ -46,6 +46,7 @@ module.exports = {
                 }
               } catch(err) {
                 console.error(err);
+                message.channel.send(`Couldn't unban that user due to an internal error.`)
               }
         }
     }

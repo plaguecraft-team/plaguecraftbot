@@ -8,9 +8,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('minecraft-server-util');
-const request = require('request');
+const fetch = require('node-fetch');
 const ms = require('ms');
-const mi = require('minecraft-information');
 const minecraftPlayer = require('minecraft-player');
 
 // Require dotenv to hide token on Git lol
@@ -34,9 +33,14 @@ for(const file of commandFiles){
 
     client.once('ready', () => {
         console.log('The PlagueCraft Discord Bot has now come online! Fear me mortals!');
-        client.user.setActivity("pcn!help", {
-            type: "LISTENING"
-          });
+        client.user.setPresence({
+            status: 'dnd',
+            activity: {
+                name: 'pcn!help',
+                type: 'WATCHING',
+                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+            }
+        })
     });
 
     client.on('guildMemberAdd', async member => {
@@ -62,13 +66,6 @@ for(const file of commandFiles){
 
         process.on('unhandledRejection', error => {
             console.error('Unhandled promise rejection:', error);
-            message.channel.send(`There was an internal bot error! Contact the developers via **pcn!ticket**.\nI've dispatched this to the developers DMs!`)
-
-            client.users.cache.get('288101780074528768').send(`Hey Awex! There was an error with the command ${message.author} just sent.\nHere's the error!\n**${error}**`);
-
-            const notisError = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞") // Define Channel
-
-            notisError.send(`The command that ${message.author} just sent errored out!\n**Error: ${error}**`);
         });
      
         // General Commands
@@ -91,7 +88,7 @@ for(const file of commandFiles){
         } else if (command === 'playerreport') {
             client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer);
         } else if (command === 'stats') {
-            client.commands.get('stats').execute(client, Discord, message, args, request);
+            client.commands.get('stats').execute(client, Discord, message, args, fetch);
         } else if (command === 'status') {
             client.commands.get('status').execute(client, Discord, message, args, util);
             // Moderation

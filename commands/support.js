@@ -38,11 +38,22 @@ module.exports = {
 			.setTitle(`PlagueCraft Knowledge Base`)
 			.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
 			.setColor(`#c7002e`)
-			.setDescription(`Need support? Trying to learn something? You've come to the right place!\n**Our current topics are:**\nreports\nplots`)
+			.setDescription(`Need support? Trying to learn something? You've come to the right place!\n**Our current topics are:**\nreports\nplots\nappealing**`)
 			.setFooter(`PCN Support`)
 			.setTimestamp();
 
 			return message.channel.send(topicsEmbed);
+		
+		} else if (args[0] === 'appealing') {
+			const appealEmbed = new Discord.MessageEmbed()
+			.setTitle(`PlagueCraft Knowledge Base`)
+			.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
+			.setColor(`#c7002e`)
+			.setDescription(`If you've been punished on our site OR on our Minecraft server, this is your place to start!\nYou'll need to appeal [here](https://plaguecraft.xyz/appeal) OR by a ticket (pcn!ticket).\nOnce you've done that, the team will review your request to be unbanned and deem it either approved or denied!\n\nTo prevent this from happening in the first place, we recommend checking out our [game server guidelines](https://plaguecraft.xyz/guidelines). That will help you stay on without punishment!`)
+			.setFooter(`PCN Support`)
+			.setTimestamp();
+
+			return message.channel.send(appealEmbed);
 		}
 	}
 }

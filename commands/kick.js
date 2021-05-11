@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'kick',
 	description: "PCN Kick Command",
-	execute(Discord, client, message, args) {
+	execute(client, Discord, message, args) {
 
 		const member = message.mentions.users.first();
 
@@ -25,6 +25,7 @@ module.exports = {
 			const reason = args.slice(1).join(' ');
 			const memberTarget = message.guild.members.cache.get(member.id);
 			memberTarget.kick();
+			message.react('✔️')
 			console.log(`User ${memberTarget} has been kicked for ${reason}`)
 
 			const kickEmbed = new Discord.MessageEmbed()
@@ -38,6 +39,13 @@ module.exports = {
 			const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 
 			channel.send(kickEmbed);
+
+			try {
+				memberTarget.send(`You were kicked from the PlagueCraft Network server.\nReason: ${reason}`)
+			}
+			catch(err) {
+				console.log(`Could not send message to ${memberTarget}`)
+			}
 
 		} else {
 			message.channel.send(`That user could not be kicked from the server!`)
