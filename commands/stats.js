@@ -18,7 +18,6 @@ module.exports = {
 			}
 
 			const { response } = await fetch(econurl).then(response => response.json());
-			const json = JSON.stringify(response);
 
 			const econEmbed = new Discord.MessageEmbed() // New Embed
 					.setTitle('PlagueCraft Economy Lookup')
@@ -26,11 +25,15 @@ module.exports = {
 					.setURL(econurl)
 					.setColor(`#c7002e`)
 					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-					.setDescription(`Our API returned the following information!\n\n${json}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.\n\n**REMEMBER**: If you get the empty brackets, make sure you're using your Mojang-issued UUID. You can find that out [here](https://minecraft-techworld.com/uuid-lookup-tool).`)
+					.addFields(
+						{ name: 'Player', value: `${response[0].NAME}`, inline: true },
+						{ name: 'Balance', value: `${response[0].MONEY}`, inline: true },
+					)
+					.setDescription(`Our API returned the following information!\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
 					.setFooter(`PCN Lookup`)
 					.setTimestamp();
 
-					console.log(`${message.author} got the following data from the REST API:`, json) // Log and send the data & embed.
+					console.log(`${message.author} got the following data from the REST API:`, response) // Log and send the data & embed.
 					return message.channel.send(econEmbed);
 			}
 
@@ -40,7 +43,6 @@ module.exports = {
 			}
 			
 			const { response } = await fetch(econurl).then(response => response.json());
-			const json = JSON.stringify(response);
 
 			const econEmbed = new Discord.MessageEmbed() // New Embed
 					.setTitle('PlagueCraft Economy Lookup')
@@ -48,11 +50,15 @@ module.exports = {
 					.setURL(econurl)
 					.setColor(`#c7002e`)
 					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-					.setDescription(`Our API returned the following information!\n\n${json}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.\n\n**REMEMBER**: If you get the empty brackets, make sure you're using your Mojang-issued UUID. You can find that out [here](https://minecraft-techworld.com/uuid-lookup-tool).`)
+					.addFields(
+						{ name: 'Player', value: `${response[0].NAME}`, inline: true },
+						{ name: 'Balance', value: `${response[0].MONEY}`, inline: true },
+					)
+					.setDescription(`Our API returned the following information!\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
 					.setFooter(`PCN Lookup`)
 					.setTimestamp();
 
-					console.log(`${message.author} got the following data from the REST API:`, json) // Log and send the data & embed.
+					console.log(`${message.author} got the following data from the REST API:`, response) // Log and send the data & embed.
 					return message.channel.send(econEmbed);
 
 			} else if (args[0] === 'sw') {
@@ -62,37 +68,51 @@ module.exports = {
 				}
 
 				const { response } = await fetch(swurl).then(response => response.json());
-				const json = JSON.stringify(response);
 	
 						const swEmbed = new Discord.MessageEmbed() // New Embed
 						.setTitle('PlagueCraft SkyWars Lookup')
 						.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
 						.setURL(swurl)
 						.setColor(`#c7002e`)
+						.addFields(
+							{ name: 'Player Name', value: `${response[0].player_name}`, inline: true },
+							{ name: 'Wins', value: `${response[0].wins}`, inline: true },
+							{ name: 'Losses', value: `${response[0].losses}`, inline: true },
+							{ name: 'Kills', value: `${response[0].kills}`, inline: true },
+							{ name: 'Deaths', value: `${response[0].deaths}`, inline: true },
+							{ name: 'XP', value: `${response[0].xp}`, inline: true },
+						)
 						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-						.setDescription(`Our API returned the following information!\n\n${json}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+						.setDescription(`Our API returned the following information!\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
 						.setFooter(`PCN Lookup`)
 						.setTimestamp();
 	
-						console.log(`${message.author} got the following data from the REST API:`, json) // Log and send the data & embed.
+						console.log(`${message.author} got the following data from the REST API:`, response) // Log and send the data & embed.
 						return message.channel.send(swEmbed);
 						
 					} else if (args[0] === 'skywars') {
 						const { response } = await fetch(swurl).then(response => response.json());
-						const json = JSON.stringify(response);
-			
-								const swEmbed = new Discord.MessageEmbed() // New Embed
-								.setTitle('PlagueCraft SkyWars Lookup')
-								.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
-								.setURL(swurl)
-								.setColor(`#c7002e`)
-								.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
-								.setDescription(`Our API returned the following information!\n\n${json}\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
-								.setFooter(`PCN Lookup`)
-								.setTimestamp();
-			
-								console.log(`${message.author} got the following data from the REST API:`, json) // Log and send the data & embed.
-								return message.channel.send(swEmbed);
+	
+						const swEmbed = new Discord.MessageEmbed() // New Embed
+						.setTitle('PlagueCraft SkyWars Lookup')
+						.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
+						.setURL(swurl)
+						.setColor(`#c7002e`)
+						.addFields(
+							{ name: 'Player Name', value: `${response[0].player_name}`, inline: true },
+							{ name: 'Wins', value: `${response[0].wins}`, inline: true },
+							{ name: 'Losses', value: `${response[0].losses}`, inline: true },
+							{ name: 'Kills', value: `${response[0].kills}`, inline: true },
+							{ name: 'Deaths', value: `${response[0].deaths}`, inline: true },
+							{ name: 'XP', value: `${response[0].xp}`, inline: true },
+						)
+						.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
+						.setDescription(`Our API returned the following information!\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
+						.setFooter(`PCN Lookup`)
+						.setTimestamp();
+	
+						console.log(`${message.author} got the following data from the REST API:`, response) // Log and send the data & embed.
+						return message.channel.send(swEmbed);
 					}
 				}
 			}

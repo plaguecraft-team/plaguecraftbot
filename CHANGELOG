@@ -1,5 +1,0 @@
-UPDATES
-
-#1 - Reverted to our previous handler since we broke the bot with the new one lol
-#2 - Rewrote the bot.js file as a whole
-#3 - Improved install scripts 
