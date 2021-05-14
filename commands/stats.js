@@ -5,18 +5,19 @@ module.exports = {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
 
-		let econurl = `https://api.plaguecraft.xyz/v1/smp/user?player=${user}` // Economy API URL
+		let econurl = `https://api.plaguecraft.xyz/v1/smp/econ/user?player=${user}` // Economy API URL
 		let swurl = `https://api.plaguecraft.xyz/v1/sw/user?player=${user}` // SkyWars API URL
 		let skillurl = `https://api.plaguecraft.xyz/v1/smp/skills/user?player=${user}` // Skills API URL
 
 		if(!args[0]) { // Checks if the user did not add a gamemode or username
 			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 		}
+
+		if(!args[1]) {
+			return message.reply(`you didn't specify a user to lookup!`)
+		}
 		
 		if (args[0] === 'economy') { // Economy argument
-			if(!args[1]) {
-				return message.reply(`you didn't specify a user to lookup!`)
-			}
 
 			const { response } = await fetch(econurl).then(response => response.json());
 
@@ -25,10 +26,10 @@ module.exports = {
 					.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
 					.setURL(econurl)
 					.setColor(`#c7002e`)
-					.setAuthor(`${response[0].NAME} statistics`, `https://minotar.net/avatar/${response[0].NAME}`)
+					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
 					.addFields(
-						{ name: 'Player', value: `${response[0].NAME}`, inline: true },
-						{ name: 'Balance', value: `${response[0].MONEY}`, inline: true },
+						{ name: 'Player', value: `${user}`, inline: true },
+						{ name: 'Balance', value: `${response[0].balance}`, inline: true },
 					)
 					.setDescription(`Our API returned the following information!\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
 					.setFooter(`PCN Lookup`)
@@ -39,9 +40,6 @@ module.exports = {
 			}
 
 		if (args[0] === 'econ') {
-			if(!args[1]) {
-				return message.reply(`you didn't specify a user to lookup!`)
-			}
 			
 			const { response } = await fetch(econurl).then(response => response.json());
 
@@ -50,10 +48,10 @@ module.exports = {
 					.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
 					.setURL(econurl)
 					.setColor(`#c7002e`)
-					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${response[0].NAME}`)
+					.setAuthor(`${user} statistics`, `https://minotar.net/avatar/${user}`)
 					.addFields(
-						{ name: 'Player', value: `${response[0].NAME}`, inline: true },
-						{ name: 'Balance', value: `${response[0].MONEY}`, inline: true },
+						{ name: 'Player', value: `${user}`, inline: true },
+						{ name: 'Balance', value: `${response[0].balance}`, inline: true },
 					)
 					.setDescription(`Our API returned the following information!\n\nIf you have any questions, check out our [Bot FAQ](https://plaguecraft.xyz/bot-faq) for more info.`)
 					.setFooter(`PCN Lookup`)
@@ -63,10 +61,6 @@ module.exports = {
 					return message.channel.send(econEmbed);
 
 			} else if (args[0] === 'sw') {
-				
-				if(!args[1]) {
-					return message.reply(`you didn't specify a user to lookup!`)
-				}
 
 				const { response } = await fetch(swurl).then(response => response.json());
 	

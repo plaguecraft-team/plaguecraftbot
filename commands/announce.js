@@ -12,6 +12,14 @@ module.exports = {
 
         if(args[0] === 'schedule') {
 
+            if(!args[1]) {
+                return message.channel.send('You need to provide a set time to send this announcement!')
+            }
+
+            if(!args[2]) {
+                return message.channel.send('You need to provide what you want to announce!')
+            }
+
             const announcement = args.slice(2).join(' ');
             message.channel.send(`Scheduled your announcement to go live in ${ms(ms(args[1]))}!`)
             const annoucementsChannel = client.channels.cache.find(channel => channel.name === "🔊announcements🔊")
@@ -22,11 +30,21 @@ module.exports = {
             }, ms(args[1]));
 
         } else if (args[0] === 'send') {
+
+            if(!args[1]) {
+                return message.channel.send('You need to provide what you want to announce!')
+            }
+
             const announcement = args.slice(1).join(' ');
             const annoucementsChannel = client.channels.cache.find(channel => channel.name === "🔊announcements🔊")
             annoucementsChannel.send(`${announcement}\n\n ~ ${message.author.username}`)
 
         } else if (args[0] === 'testsend') {
+
+            if(!args[1]) {
+                return message.channel.send('You need to provide what you want to announce!')
+            }
+
             const announcement = args.slice(1).join(' ');
             message.channel.send(`${announcement}\n\n ~ ${message.author.username}`);
 

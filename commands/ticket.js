@@ -6,7 +6,7 @@ module.exports = {
 	async execute(client, Discord, message, args) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`); // Define how to create the channel
         channel.setParent('774727207671037955'); // Category ID of the channel 
-        const role = message.guild.roles.cache.get("829362215286210591"); 
+        const modrole = message.guild.roles.cache.get("829362215286210591"); 
 
         channel.updateOverwrite(message.guild.id, {
             SEND_MESSAGE: false,
