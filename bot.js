@@ -93,6 +93,8 @@ for(const file of commandFiles){
             client.commands.get('status').execute(client, Discord, message, args, util);
         } else if (command === 'announce') {
             client.commands.get('announce').execute(client, Discord, message, args, ms);
+        } else if (command === 'bug') {
+            client.commands.get('bug').execute(client, Discord, message, args);
             // Moderation
         } else if (command === 'ban') {
             client.commands.get('ban').execute(client, Discord, message, args);
