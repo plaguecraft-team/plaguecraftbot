@@ -5,9 +5,9 @@ module.exports = {
 
 		const user = args.slice(1).join(' '); // Cutting the gamemode off
 
-		let econurl = `https://api.plaguecraft.xyz/v2/smp/econ/user?player=${user}` // Economy API URL
-		let swurl = `https://api.plaguecraft.xyz/v2/sw/user?player=${user}` // SkyWars API URL
-		let skillurl = `https://api.plaguecraft.xyz/v2/smp/skills/user?player=${user}` // Skills API URL
+		let econurl = `https://api.plaguecraft.xyz/v2/smp/econ?player=${user}` // Economy API URL
+		let swurl = `https://api.plaguecraft.xyz/v2/sw?player=${user}` // SkyWars API URL
+		let skillurl = `https://api.plaguecraft.xyz/v2/smp/skills?player=${user}` // Skills API URL
 
 		if(!args[0]) { // Checks if the user did not add a gamemode or username
 			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
