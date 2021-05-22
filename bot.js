@@ -95,6 +95,8 @@ for(const file of commandFiles){
             client.commands.get('announce').execute(client, Discord, message, args, ms);
         } else if (command === 'bug') {
             client.commands.get('bug').execute(client, Discord, message, args);
+        } else if (command === 'clips') {
+            client.commands.get('clips').execute(client, Discord, message, args, fetch);
             // Moderation
         } else if (command === 'ban') {
             client.commands.get('ban').execute(client, Discord, message, args);
