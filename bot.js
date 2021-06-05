@@ -81,14 +81,54 @@ for(const file of commandFiles){
             client.commands.get('support').execute(client, Discord, message, args);
         } else if (command === 'ticket') {
             client.commands.get('ticket').execute(client, Discord, message, args);
+        } else if (command === 'aticket') {
+            if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+                return message.channel.send('You do not have the permissions to run this command!')
+            }
+            if (!args[0]) {
+                return message.channel.send(`You didn't include a subject for the ticket.`)
+            }
+            let messageArgs = args.join(' ');
+            const webhookClient = new Discord.WebhookClient(process.env.webhookID, process.env.webhookToken);
+
+            const embed = new Discord.MessageEmbed()
+            .setTitle('Ticket Notification!')
+            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
+            .setDescription(`${message.author} has created a new ticket!\nContents: ${messageArgs}`)
+            .setColor('#03fc41')
+            .setFooter('PCN')
+            .setTimestamp();
+
+            var params = {
+                username: "PCN ATicket",
+                avatar_url: "https://plaguecraft.xyz/storage/assets/img/logo.png",
+                content: "New Ticket:",
+                embeds: [
+                    {
+                        "title": "Ticket Notification!",
+                        "thumbnail": {
+                            "url": "https://plaguecraft.xyz/storage/assets/img/logo.png",
+                        },
+                        "description": `${message.author.username} has created a new ticket!\nContents: ${messageArgs}`
+                    }
+                ]
+            }
+
+            fetch('https://discord.com/api/webhooks/850674579457179649/KNFqur-9H-xFNbVNUIh1xGWHy4GozH7UK1-e4z8aaTA4AdAhNpOG-RsA3bAkBrcj_IP2', {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            }).then(res => {
+                console.log(res);
+            }) 
         } else if (command === 'ip') {
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {
             client.commands.get('report').execute(client, Discord, message, args);
         } else if (command === 'playerreport') {
             client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer);
-        } else if (command === 'stats') {
-            client.commands.get('stats').execute(client, Discord, message, args, fetch);
         } else if (command === 'status') {
             client.commands.get('status').execute(client, Discord, message, args, util);
         } else if (command === 'announce') {
