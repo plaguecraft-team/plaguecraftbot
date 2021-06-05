@@ -123,6 +123,8 @@ for(const file of commandFiles){
             }).then(res => {
                 console.log(res);
             }) 
+
+            return message.channel.send('Sent your ticket!')
         } else if (command === 'ip') {
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {
