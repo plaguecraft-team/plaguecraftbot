@@ -89,15 +89,6 @@ for(const file of commandFiles){
                 return message.channel.send(`You didn't include a subject for the ticket.`)
             }
             let messageArgs = args.join(' ');
-            const webhookClient = new Discord.WebhookClient(process.env.webhookID, process.env.webhookToken);
-
-            const embed = new Discord.MessageEmbed()
-            .setTitle('Ticket Notification!')
-            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
-            .setDescription(`${message.author} has created a new ticket!\nContents: ${messageArgs}`)
-            .setColor('#03fc41')
-            .setFooter('PCN')
-            .setTimestamp();
 
             var params = {
                 username: "PCN ATicket",
@@ -125,6 +116,40 @@ for(const file of commandFiles){
             }) 
 
             return message.channel.send('Sent your ticket!')
+        } else if (command === 'areply') {
+            if(!message.member.roles.cache.some(r => r.name === "awex")){
+                return message.channel.send('You do not have the permissions to run this command!')
+            }
+            if (!args[0]) {
+                return message.channel.send(`You didn't include a subject for the ticket.`)
+            }
+            let messageArgs = args.join(' ');
+            var params = {
+                username: "PCN ATicket",
+                avatar_url: "https://plaguecraft.xyz/storage/assets/img/logo.png",
+                content: `Awex has responded to a ticket!`,
+                embeds: [
+                    {
+                        "title": "Awex's Response",
+                        "thumbnail": {
+                            "url": "https://plaguecraft.xyz/storage/assets/img/logo.png",
+                        },
+                        "description": `${messageArgs}`
+                    }
+                ]
+            }
+
+            fetch('https://discord.com/api/webhooks/850765040243310592/SxHQ2W0y0Z1SJn9aKfgDWSLlIrRRy0w_tXGKJkTWGq9lIYOl9p3JsM2bCmkE2RjrBJBW', {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            }).then(res => {
+                console.log(res);
+            }) 
+
+            return message.channel.send('Sent.')
         } else if (command === 'ip') {
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {
