@@ -15,6 +15,7 @@ module.exports = {
         if(args[0] < 1) return message.reply("The supplied value is too small, it must be bigger than 1!");
 
         await message.channel.messages.fetch({limit: args[0]}).then(messages =>{
+            // console.log(messages);
             message.channel.bulkDelete(messages).catch(console.error)
 
             const purgeEmbed = new Discord.MessageEmbed()

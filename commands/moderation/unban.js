@@ -1,23 +1,18 @@
 module.exports = {
     name: 'unban',
     async execute(client, Discord, message, args) {
-        const target = message.mentions.users.first();
-        
-            if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
-			    return message.channel.send('You do not have the permissions to run this command!')
-		    }
-        
-            if(!args.length) {
-                return message.reply(`You didn't specify a user to unban!`);
-            }
-        
-            if (target === message.author) { // Makes sure the user isn't the same as the message author
-                return message.channel.send(`How are you expecting to unban yourself when you can't even ban yourself in the first place?`)
-            }
+        const member = message.mentions.users.first();
 
-        if(target){
+        if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
+            return message.channel.send('You do not have the permissions to run this command!')
+        } else if (!args.length) {
+            return message.reply(`You didn't specify a user to unban!`);
+        } else if (member === message.author) {
+            return message.channel.send(`How are you expecting to unban yourself when you can't even ban yourself in the first place?`)
+        }
 
-            let memberTarget = message.guild.members.cache.get(target.id);
+        if(member) {
+            let memberTarget = message.guild.members.cache.get(member.id);
 
             try {
                 const banList = await message.guild.fetchBans();
@@ -40,14 +35,14 @@ module.exports = {
                     .setTimestamp();
         
                     return channel.send(unbanEmbed);
-                }
-                else if (!bannedUser){
-                    await message.channel.send('That user is not banned.');
-                }
-              } catch(err) {
-                console.error(err);
-                message.channel.send(`Couldn't unban that user due to an internal error.`)
-              }
+            } else if (!bannedUser) {
+                await message.channel.send(`${memberTarget.username} is not banned.`)
+            }
+        }
+            catch (err) {
+                console.log(`There was an error when trying to unban ${memberTarget.username}:`, err)
+                return message.channel.send(`I couldn't unban ${memberTarget.username} due to an internal error. Please contact Awex or someone from the dev team.`)
+            }
         }
     }
 }

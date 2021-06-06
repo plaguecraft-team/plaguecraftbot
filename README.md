@@ -20,10 +20,9 @@
 
 <p align="center">node.js - Obviously. Why wouldn't we need the thing it'd coded in lmao<br />
 discord.js - for even more obvious reasons<br />
-node-fetch - bot uses it to fetch for data from the PCNAPI<br />
+node-fetch - bot uses it to fetch for data from the status API and anything that needs an API request made<br />
 dotenv - If you'd like. You can make modifications for it to just pull the token directly from the file and remove the const at the beginning of bot.js, or use .env to hide your token!<br />
 ms - used for the tempmute command timer<br />
-minecraft-server-util - For checking server status<br />
 minecraft-player - used for uuid translation</p>
 
 <h2 align="center">How do I install these?</h2>
