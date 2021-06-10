@@ -6,10 +6,13 @@
 
 // Calling all packages needed for this project
 const Discord = require('discord.js');
+const { Client, Intents} = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const ms = require('ms');
 const minecraftPlayer = require('minecraft-player');
+const math = require('mathjs');
 
 // Require dotenv to hide token on Git lol
 require('dotenv').config();
@@ -18,11 +21,12 @@ require('dotenv').config();
 const prefix = 'pcn!';
 
 // Create the bot client
-const client = new Discord.Client();
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 // Prepare the command handlers
 client.commands = new Discord.Collection();
 client.moderation = new Discord.Collection();
+client.econ = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/general').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
@@ -38,7 +42,14 @@ for(const file of modFiles){
     client.moderation.set(command.name, command);
 }
 
-    client.once('ready', () => {
+const econFiles = fs.readdirSync('./commands/economy').filter(file => file.endsWith('.js'));
+for(const file of econFiles){
+    const command = require(`./commands/economy/${file}`);
+ 
+    client.econ.set(command.name, command);
+}
+
+    client.once('ready', async () => {
         console.log('The PlagueCraft Discord Bot has now come online! Fear me mortals!');
         client.user.setPresence({
             status: 'dnd',
@@ -65,25 +76,20 @@ for(const file of modFiles){
         channel.send(joinEmbed)
     });
 
-    client.on('messageBulkDelete', async message => {
-        if(!message.guild) return;
-        const fetchedLogs = await message.guild.fetchAuditLogs({
-            limit: 1,
-            type: 'MESSAGE_BULK_DELETE',
-        });
-
-        const deletionLog = fetchedLogs.entries.first();
-
-        if(!deletionLog) return console.log(`A message by ${message.author.tag} was removed, but no relevant audit logs were found.`)
-
-        const { executer, target } = deletionLog;
-
-        if(target.id === message.author.id) {
-            console.log(`A message by ${message.author.username} was deleted by ${executer.tag}.`)
-        } else {
-            console.log(`A message by ${message.author.tag} was deleted, however there is no person tied to it.`)
-        }
-    })
+        client.on('messageDeleteBulk', async messages => {
+            const length = messages.array().length;
+            const channel = messages.first().channel.name;
+            console.log(`${length} messages were purged:`, messages.map(message => `[${message.author.tag}]: ${message.content}`))
+          
+            const embed = new Discord.MessageEmbed()
+              .setTitle(`${length} Messages purged in #${channel}`)
+              .setDescription(messages.map(message => `[${message.author.tag}]: ${message.content}`))
+              .setFooter(`${length} latest shown`)
+              .setColor('#c7002e')
+              .setTimestamp();
+          
+            (await client.channels.fetch(`840640152179048449`)).send(embed);
+          });
      
     client.on('message', async message =>{
         if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -107,41 +113,9 @@ for(const file of modFiles){
         } else if (command === 'ticket') {
             client.commands.get('ticket').execute(client, Discord, message, args);
         } else if (command === 'aticket') {
-            client.moderation.get('aticket').execute(client, Discord, message, args, client);
+            client.moderation.get('aticket').execute(client, Discord, message, args);
         } else if (command === 'areply') {
-            if(!message.member.roles.cache.some(r => r.name === "awex")){
-                return message.channel.send('You do not have the permissions to run this command!')
-            }
-            if (!args[0]) {
-                return message.channel.send(`You didn't include a subject for the ticket.`)
-            }
-            let messageArgs = args.join(' ');
-            var params = {
-                username: "PCN ATicket",
-                avatar_url: "https://plaguecraft.xyz/storage/assets/img/logo.png",
-                content: `Awex has responded to a ticket!`,
-                embeds: [
-                    {
-                        "title": "Awex's Response",
-                        "thumbnail": {
-                            "url": "https://plaguecraft.xyz/storage/assets/img/logo.png",
-                        },
-                        "description": `${messageArgs}`
-                    }
-                ]
-            }
-
-            fetch('https://discord.com/api/webhooks/850765040243310592/SxHQ2W0y0Z1SJn9aKfgDWSLlIrRRy0w_tXGKJkTWGq9lIYOl9p3JsM2bCmkE2RjrBJBW', {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(params)
-            }).then(res => {
-                console.log(res);
-            }) 
-
-            return message.channel.send('Sent.')
+            client.moderation.get('areply').execute(client, Discord, message, args);
         } else if (command === 'ip') {
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {
@@ -156,6 +130,8 @@ for(const file of modFiles){
             client.commands.get('bug').execute(client, Discord, message, args);
         } else if (command === 'clips') {
             client.commands.get('clips').execute(client, Discord, message, args, fetch);
+        } else if (command === 'invite') {
+            return message.channel.send(`https://plaguecraft.xyz/discord`)
             // Moderation
         } else if (command === 'ban') {
             client.moderation.get('ban').execute(client, Discord, message, args);
@@ -163,18 +139,25 @@ for(const file of modFiles){
             client.moderation.get('kick').execute(client, Discord, message, args);
         } else if (command === 'mute') {
             client.moderation.get('mute').execute(client, Discord, message, args);
-        } else if (command === 'tempmute') {
-            client.moderation.get('tempmute').execute(client, Discord, message, args, ms);
+        } else if (command === 'temp') {
+            client.moderation.get('temp').execute(client, Discord, message, args, ms);
         } else if (command === 'clear') {
             client.moderation.get('clear').execute(client, Discord, message, args);
         } else if (command === 'unmute') {
             client.moderation.get('unmute').execute(client, Discord, message, args);
         } else if (command === 'mod-help') {
             client.moderation.get('mod-help').execute(client, Discord, message, args);
-        } else if (command === 'tempban') {
-            client.moderation.get('tempban').execute(client, Discord, message, args, ms);
-        } else if (command === 'unban') {
-            client.moderation.get('unban').execute(client, Discord, message, args);
+        // } else if (command === 'unban') {
+        //     client.moderation.get('unban').execute(client, Discord, message, args);
+        // Economy
+        } else if (command === 'balance') {
+            client.econ.get('balance').execute(client, Discord, message, args, fetch);
+        } else if (command === 'give') {
+            client.econ.get('give').execute(client, Discord, message, args, fetch, math);
+        } else if (command === 'register') {
+            client.econ.get('register').execute(client, Discord, message, args, fetch);
+        } else if (command === 'store') {
+            client.econ.get('store').execute(client, Discord, message, args, fetch)
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.moderation.get('mod-help').execute(client, Discord, message, args);

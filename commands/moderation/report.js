@@ -27,6 +27,6 @@ module.exports = {
             const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
 			channel.send(reportEmbed);
 			console.log(`${message.author} has made a report on ${target} for "${reason}"`)
-			message.author.send(`Thanks for your report on ${target}. It's been sent to our team for further review! We'll shoot you a DM with our findings.\nAs always, if this user is harassing you via direct message or in other means, please block them. We'll report them to Discord if deemed needed by our Moderation Team.\n<3,\nThe PlagueCraft Development Team`)
+			message.author.send(`Thanks for your report on ${target}. It's been sent to our team for further review!\nAs always, if this user is harassing you via direct message or in other means, please block them. We'll report them to Discord if deemed needed by our Moderation Team.\n<3,\nThe PlagueCraft Development Team`)
 	}
 }

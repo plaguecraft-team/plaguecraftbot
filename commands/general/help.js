@@ -8,7 +8,7 @@ module.exports = {
 		.setTitle('PlagueCraftBot Help')
 		.setURL('https://plaguecraft.xyz')
 		.setAuthor('The PlagueCraft Network')
-		.setDescription('The PlagueCraft Network is a Minecraft Network of gamemodes, with things like Prison and more!\nThis command details our Bot commands.\n\nOur prefix is pcn!\n\n**pcn!help** - This embed lol\n\n**pcn!ip** - Displays the MC Server IP\n\n**pcn!ticket** - Creates a help ticket (check out #ticket-help for more info).\n\n**pcn!suggest [suggestion]** - Make a suggestion to the server\n\n**pcn!report** - Reports a user to the PlagueCraft Network Moderation Team\n\n**pcn!playerreport** - Used ***only*** for reporting in-game players. Use **pcn!report** for reporting Discord users.\n\n**pcn!status** - Shows the PlagueCraft Network Server Status\n\n**pcn!clips** -- Interacts with the [Medal](https://docs.medal.tv) API to return our gamemode trailers.')
+		.setDescription('The PlagueCraft Network is a Minecraft Network of gamemodes, with things like Prison and more!\nThis command details our Bot commands.\n\nOur prefix is pcn!\n\n**pcn!help** - This embed lol\n\n**pcn!ip** - Displays the MC Server IP\n\n**pcn!ticket** - Creates a help ticket (check out #ticket-help for more info).\n\n**pcn!suggest [suggestion]** - Make a suggestion to the server\n\n**pcn!report** - Reports a user to the PlagueCraft Network Moderation Team\n\n**pcn!playerreport** - Used ***only*** for reporting in-game players. Use **pcn!report** for reporting Discord users.\n\n**pcn!status** - Shows the PlagueCraft Network Server Status \n\n **pcn!invite** - Invite to this Discord server')
 		.setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
 		.setFooter(`PCN`)
 		.setTimestamp();

@@ -15,12 +15,6 @@ module.exports = {
 
         if(member) {
             try {
-                const banList = await message.guild.fetchBans();
-                const bannedUser = banList.find(user => user.id === `${member}`)
-
-                if (bannedUser) {
-                    return await message.channel.send(`${member.username} is already banned.`)
-                } else if (!bannedUser) {
                     const reason = args.slice(1).join(' ');
                     const memberTarget = message.guild.members.cache.get(member.id);
 
@@ -38,11 +32,10 @@ module.exports = {
 					const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
                     channel.send(banEmbed)
                 }
-            }
-            catch (err) {
-                console.log('Oh no! There was an error running the Ban command:', err)
-                return message.channel.send(`I couldn't ban ${member.username} due to an internal error. Please contact a team member.`)
+                catch (err) {
+                    console.log('Oh no! There was an error running the Ban command:', err)
+                    return message.channel.send(`I couldn't ban ${member.username} due to an internal error. Please contact a team member.`)
+                }
             }
         }
     }
-}

@@ -14,23 +14,12 @@ module.exports = {
         if(args[0] > 100) return message.reply("100 is the max number of messages at once!");
         if(args[0] < 1) return message.reply("The supplied value is too small, it must be bigger than 1!");
 
+        message.delete();
+
         await message.channel.messages.fetch({limit: args[0]}).then(messages =>{
             // console.log(messages);
             message.channel.bulkDelete(messages).catch(console.error)
 
-            const purgeEmbed = new Discord.MessageEmbed()
-            .setTitle('Messages purged!')
-            .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
-            .setDescription(`${message.author} has purged ${args} messages!`)
-            .setColor('#c7002e')
-            .setFooter('PCN Bulk Clear')
-            .setTimestamp();
-
-            const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
-
-            channel.send(purgeEmbed);
-
-            console.log(`${message.author} has cleared ${args} messages!`)
         }) 
 	}
 }

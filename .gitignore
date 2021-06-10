@@ -3,3 +3,5 @@ node_modules
 package-lock.json
 get-bot.sh
 commands/lockdown.js
+commands/moderation/unban.js
+commands/economy
