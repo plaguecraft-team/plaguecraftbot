@@ -42,23 +42,16 @@ for(const file of modFiles){
     client.moderation.set(command.name, command);
 }
 
-const econFiles = fs.readdirSync('./commands/economy').filter(file => file.endsWith('.js'));
-for(const file of econFiles){
-    const command = require(`./commands/economy/${file}`);
+// const econFiles = fs.readdirSync('./commands/economy').filter(file => file.endsWith('.js'));
+// for(const file of econFiles){
+//     const command = require(`./commands/economy/${file}`);
  
-    client.econ.set(command.name, command);
-}
+//     client.econ.set(command.name, command);
+// }
 
     client.once('ready', async () => {
         console.log('The PlagueCraft Discord Bot has now come online! Fear me mortals!');
-        client.user.setPresence({
-            status: 'dnd',
-            activity: {
-                name: 'pcn!help',
-                type: 'WATCHING',
-                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-            }
-        })
+        client.user.setActivity("pcn!help");
     });
 
     client.on('guildMemberAdd', async member => {
@@ -150,14 +143,16 @@ for(const file of econFiles){
         // } else if (command === 'unban') {
         //     client.moderation.get('unban').execute(client, Discord, message, args);
         // Economy
-        } else if (command === 'balance') {
-            client.econ.get('balance').execute(client, Discord, message, args, fetch);
-        } else if (command === 'give') {
-            client.econ.get('give').execute(client, Discord, message, args, fetch, math);
-        } else if (command === 'register') {
-            client.econ.get('register').execute(client, Discord, message, args, fetch);
-        } else if (command === 'store') {
-            client.econ.get('store').execute(client, Discord, message, args, fetch)
+        // } else if (command === 'balance') {
+        //     client.econ.get('balance').execute(client, Discord, message, args, fetch);
+        // } else if (command === 'give') {
+        //     client.econ.get('give').execute(client, Discord, message, args, fetch, math);
+        // } else if (command === 'register') {
+        //     client.econ.get('register').execute(client, Discord, message, args, fetch);
+        // } else if (command === 'store') {
+        //     client.econ.get('store').execute(client, Discord, message, args, fetch)
+        // } else if (command === 'buy') {
+        //     client.econ.get('buy').execute(client, Discord, message, args, fetch, math);
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.moderation.get('mod-help').execute(client, Discord, message, args);
