@@ -3,7 +3,7 @@ module.exports = {
     async execute(client, Discord, message, args, fetch) {
 
         const api = `http://rest.plaguecraft.xyz/v0/discord/user?user=${message.author.id}`
-        const postapi = `http://localhost:1337/v0/discord/user/post`
+        const postapi = `http://rest.plaguecraft.xyz/v0/discord/user/post`
         const { response } = await fetch(api).then(response => response.json())
 
         if(message.member.roles.cache.some(r => r.name === "EconReg")){
