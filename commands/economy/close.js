@@ -8,7 +8,7 @@ module.exports = {
         const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 10000 });
         // console.log(collector)
         collector.on('collect', async message => {
-            if (message.content == "YES") {
+            if (message.content == "YES" || message.content == "yes") {
                 const delapi = `http://rest.plaguecraft.xyz/v0/discord/user/delete`
                 var params = {
                     "user": `${message.author.id}`
@@ -33,7 +33,7 @@ module.exports = {
                     console.log(err)
                 }
 
-            } else if (message.content == "NO") {
+            } else if (message.content == "NO" || message.content == "no") {
                 return message.reply(`Account deletion cancelled.`)
             }
         })
