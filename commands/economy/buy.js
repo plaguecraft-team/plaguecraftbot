@@ -7,10 +7,10 @@ module.exports = {
             return message.channel.send('You need to register (pcn!register) before you can use any economy commands.')
         }
 
-        const items = `http://localhost:1337/v0/discord/items?item=${args[0]}`
-        const uapi = `http://localhost:1337/v0/discord/users?user=${message.author.id}`
-        const postitems = `http://localhost:1337/v0/discord/computer/post`
-        const postbal = `http://localhost:1337/v0/discord/balance/post`
+        const items = `http://rest.plaguecraft.xyz/v0/discord/items?item=${args[0]}`
+        const uapi = `http://rest.plaguecraft.xyz/v0/discord/users?user=${message.author.id}`
+        const postitems = `http://rest.plaguecraft.xyz/v0/discord/computer/post`
+        const postbal = `http://rest.plaguecraft.xyz/v0/discord/balance/post`
 
         const { users } = await fetch(uapi).then(response => response.json());
 

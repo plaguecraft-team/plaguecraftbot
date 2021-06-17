@@ -3,9 +3,9 @@ module.exports = {
     async execute(client, Discord, message, args, fetch, math) {
         const member = message.mentions.users.first();
         const memberTarget = message.guild.members.cache.get(member.id);
-        const api = `http://localhost:1337/v0/discord/bal?user=${message.author.id}`
-        const uapi = `http://localhost:1337/v0/discord/bal?user=${memberTarget.id}`
-        const postapi = `http://localhost:1337/v0/discord/balance/post`
+        const api = `http://rest.plaguecraft.xyz/v0/discord/bal?user=${message.author.id}`
+        const uapi = `http://rest.plaguecraft.xyz/v0/discord/bal?user=${memberTarget.id}`
+        const postapi = `http://rest.plaguecraft.xyz/v0/discord/balance/post`
         const u = await fetch(uapi).then(response => response.json());
         const { response } = await fetch(api).then(response => response.json());
 
