@@ -26,7 +26,7 @@ module.exports = {
 
 
             setTimeout(function () {
-                annoucementsChannel.send(`${announcement}\n\n ~ ${message.author.username}`)
+                annoucementsChannel.send(`${announcement}\n ~ ${message.author.username}`)
             }, ms(args[1]));
 
         } else if (args[0] === 'send') {
@@ -37,7 +37,7 @@ module.exports = {
 
             const announcement = args.slice(1).join(' ');
             const annoucementsChannel = client.channels.cache.find(channel => channel.name === "🔊announcements🔊")
-            annoucementsChannel.send(`${announcement}\n\n ~ ${message.author.username}`)
+            annoucementsChannel.send(`${announcement}\n ~ ${message.author.username}`)
 
         } else if (args[0] === 'testsend') {
 
@@ -46,7 +46,7 @@ module.exports = {
             }
 
             const announcement = args.slice(1).join(' ');
-            message.channel.send(`${announcement}\n\n ~ ${message.author.username}`);
+            message.channel.send(`${announcement}\n ~ ${message.author.username}`);
 
         }
     }
