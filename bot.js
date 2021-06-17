@@ -153,6 +153,8 @@ for(const file of econFiles){
             client.econ.get('store').execute(client, Discord, message, args, fetch)
         } else if (command === 'buy') {
             client.econ.get('buy').execute(client, Discord, message, args, fetch, math);
+        } else if (command === 'close') {
+            client.econ.get('close').execute(client, Discord, message, args, fetch);
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.moderation.get('mod-help').execute(client, Discord, message, args);

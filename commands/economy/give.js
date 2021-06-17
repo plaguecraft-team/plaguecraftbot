@@ -21,6 +21,10 @@ module.exports = {
             return message.reply(`You don't have enough money to pay ${memberTarget} $${args[1]}! Your current balance is $${response[0].balance}.`)
         }
 
+        if(!message.member.roles.cache.some(r => r.name === "EconReg")){
+            return message.reply(`You have to be registered to give others money!`)
+        }
+
         const takeaway = math.subtract([`${response[0].balance}`], `${args[1]}`)
         const add = math.add([`${args[1]}`], `${u.response[0].balance}`)
 
