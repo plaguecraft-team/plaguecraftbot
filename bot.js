@@ -105,10 +105,6 @@ for(const file of econFiles){
             client.commands.get('support').execute(client, Discord, message, args);
         } else if (command === 'ticket') {
             client.commands.get('ticket').execute(client, Discord, message, args);
-        } else if (command === 'aticket') {
-            client.moderation.get('aticket').execute(client, Discord, message, args);
-        } else if (command === 'areply') {
-            client.moderation.get('areply').execute(client, Discord, message, args);
         } else if (command === 'ip') {
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {

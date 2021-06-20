@@ -5,7 +5,7 @@ module.exports = {
 	description: "Suggestions from people",
     async execute(client, Discord, message, args, ) {
         
-        const channel = client.channels.cache.find(channel => channel.name === "🤔suggestions🤔"); // Find the suggestions channel
+        const channel = client.channels.cache.find(channel => channel.id === "803900853302853653"); // Find the suggestions channel
 
         if(!channel) { // If it doesn't exist, return this and break from the rest of the code.
             return message.channel.send('The suggestion channel does not exist! Please check with the admins of this server.');

@@ -22,7 +22,7 @@ module.exports = {
 
             const announcement = args.slice(2).join(' ');
             message.channel.send(`Scheduled your announcement to go live in ${ms(ms(args[1]))}!`)
-            const annoucementsChannel = client.channels.cache.find(channel => channel.name === "🔊announcements🔊")
+            const annoucementsChannel = client.channels.cache.find(channel => channel.id === "801092024354078750")
 
 
             setTimeout(function () {

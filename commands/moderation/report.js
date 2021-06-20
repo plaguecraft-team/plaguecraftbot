@@ -24,7 +24,7 @@ module.exports = {
 		.setFooter(`PCN Reports`)
 		.setTimestamp();
 
-            const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
+            const channel = client.channels.cache.find(channel => channel.id === "837796493159039008")
 			channel.send(reportEmbed);
 			console.log(`${message.author} has made a report on ${target} for "${reason}"`)
 			message.author.send(`Thanks for your report on ${target}. It's been sent to our team for further review!\nAs always, if this user is harassing you via direct message or in other means, please block them. We'll report them to Discord if deemed needed by our Moderation Team.\n<3,\nThe PlagueCraft Development Team`)

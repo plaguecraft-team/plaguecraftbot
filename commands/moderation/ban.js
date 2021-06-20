@@ -29,7 +29,7 @@ module.exports = {
 					memberTarget.ban();
 					message.react('✔️')
 					console.log(`User ${memberTarget} has been banned! Reason: "${reason}"`)
-					const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
+					const channel = client.channels.cache.find(channel => channel.id === "837796493159039008")
                     channel.send(banEmbed)
                 }
                 catch (err) {

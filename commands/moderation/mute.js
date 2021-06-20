@@ -16,7 +16,7 @@ module.exports = {
         if(member) {
             const reason = args.slice(1).join(' ');
             let muteRole = message.guild.roles.cache.find(role => role.name === 'Muted');
-            let memberTarget = message.guild.members.cache.get(target.id);
+            let memberTarget = message.guild.members.cache.get(member.id);
             try {
                 memberTarget.roles.add(muteRole.id)
                 message.react('✔️')
@@ -31,7 +31,7 @@ module.exports = {
                 .setFooter('PCN Mutes')
                 .setTimestamp();
     
-                const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞")
+                const channel = client.channels.cache.find(channel => channel.id === "837796493159039008")
                 channel.send(muteEmbed)
             }
             catch (err) {

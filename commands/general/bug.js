@@ -7,7 +7,7 @@ module.exports = {
         }
 
         const bug = args.slice(0).join(' ');
-        const channel = client.channels.cache.find(channel => channel.name === "🐛bugs🐛")
+        const channel = client.channels.cache.find(channel => channel.id === "843239726366720020")
         let userID = client.users.fetch(`${message.author.id}`);
             userID.then(function(result1) {
                 const imgURL = result1.displayAvatarURL();

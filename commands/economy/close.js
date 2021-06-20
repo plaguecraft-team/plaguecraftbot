@@ -9,7 +9,7 @@ module.exports = {
         // console.log(collector)
         collector.on('collect', async message => {
             if (message.content == "YES" || message.content == "yes") {
-                const delapi = `http://rest.plaguecraft.xyz/v0/discord/user/delete`
+                const delapi = `http://localhost:1337/v0/discord/user/delete`
                 var params = {
                     "user": `${message.author.id}`
                 }
