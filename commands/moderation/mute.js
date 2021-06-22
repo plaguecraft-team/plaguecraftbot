@@ -31,7 +31,7 @@ module.exports = {
                 .setFooter('PCN Mutes')
                 .setTimestamp();
     
-                const channel = client.channels.cache.find(channel => channel.id === "837796493159039008")
+                const channel = client.channels.cache.find(channel => channel.id === "856717402447675392")
                 channel.send(muteEmbed)
             }
             catch (err) {

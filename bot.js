@@ -81,7 +81,7 @@ for(const file of econFiles){
               .setColor('#c7002e')
               .setTimestamp();
           
-            (await client.channels.fetch(`840640152179048449`)).send(embed);
+            (await client.channels.fetch(`856717388749340673`)).send(embed);
           });
      
     client.on('message', async message =>{

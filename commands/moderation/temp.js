@@ -28,7 +28,7 @@ module.exports = {
                 .setTimestamp();
     
                 // const channel = client.channels.cache.find(channel => channel.name === "📞bot-notifications📞") // Define Channel
-                const channel = client.channels.cache.find(channel => channel.name === "stuff")
+                const channel = client.channels.cache.find(channel => channel.id === "856717402447675392")
                 channel.send(banTimedEmbed) // Send the embed to channel  
 
                 setTimeout(function () {
@@ -59,7 +59,7 @@ module.exports = {
                 .setFooter(`PCN Mutes`)
                 .setTimestamp();
     
-                const channel = client.channels.cache.find(channel => channel.id === "837796493159039008") // Define Channel
+                const channel = client.channels.cache.find(channel => channel.id === "856717402447675392") // Define Channel
                 channel.send(muteTimedEmbed) // Send the embed to channel
                 
                 setTimeout(function () {

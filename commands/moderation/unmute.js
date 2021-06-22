@@ -20,7 +20,7 @@ module.exports = {
                 message.channel.send(`${memberTarget} has been unmuted.`)  
                 console.log(`UID ${memberTarget} has been unmuted!`)     
                 
-                const channel = client.channels.cache.find(channel => channel.id === "837796493159039008")
+                const channel = client.channels.cache.find(channel => channel.id === "856717402447675392")
     
                 const unmuteEmbed = new Discord.MessageEmbed()
                 
