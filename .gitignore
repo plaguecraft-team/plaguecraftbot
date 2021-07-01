@@ -1,6 +1,6 @@
-.env
+config.json
 node_modules
 package-lock.json
-get-bot.sh
-commands/lockdown.js
+.env
+commands/moderation/unban.js
 commands/moderation/unban.js

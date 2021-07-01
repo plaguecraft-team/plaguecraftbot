@@ -6,27 +6,24 @@
 
 // Calling all packages needed for this project
 const Discord = require('discord.js');
-const { Client, Intents} = require('discord.js');
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const ms = require('ms');
 const minecraftPlayer = require('minecraft-player');
-const math = require('mathjs');
+const util = require('minecraft-server-util');
 
-// Require dotenv to hide token on Git lol
+// Gets config stuffs
+const { token } = require('./config.json')
+const { prefix } = require('./config.json')
 require('dotenv').config();
 
-// Set prefix
-const prefix = 'pcn!';
-
-// Create the bot client
+// Create the bot client & Initilize button support
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 // Prepare the command handlers
 client.commands = new Discord.Collection();
 client.moderation = new Discord.Collection();
-client.econ = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/general').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
@@ -40,13 +37,6 @@ for(const file of modFiles){
     const command = require(`./commands/moderation/${file}`);
  
     client.moderation.set(command.name, command);
-}
-
-const econFiles = fs.readdirSync('./commands/economy').filter(file => file.endsWith('.js'));
-for(const file of econFiles){
-    const command = require(`./commands/economy/${file}`);
- 
-    client.econ.set(command.name, command);
 }
 
     client.once('ready', async () => {
@@ -96,7 +86,7 @@ for(const file of econFiles){
      
         // General Commands
         if(command === 'help'){
-            client.commands.get('help').execute(client, Discord, message, args);
+            client.commands.get('help').execute(client, Discord, message, args, slash);
         } else if (command === 'ping') {
             client.commands.get('ping').execute(client, Discord, message, args);
         } else if (command === 'suggest') {
@@ -130,27 +120,18 @@ for(const file of econFiles){
             client.moderation.get('mute').execute(client, Discord, message, args);
         } else if (command === 'temp') {
             client.moderation.get('temp').execute(client, Discord, message, args, ms);
-        } else if (command === 'clear') {
-            client.moderation.get('clear').execute(client, Discord, message, args);
+        } else if (command === 'purge') {
+            client.moderation.get('purge').execute(client, Discord, message, args);
         } else if (command === 'unmute') {
             client.moderation.get('unmute').execute(client, Discord, message, args);
         } else if (command === 'mod-help') {
             client.moderation.get('mod-help').execute(client, Discord, message, args);
-        // } else if (command === 'unban') {
-        //     client.moderation.get('unban').execute(client, Discord, message, args);
-        // Economy
-        } else if (command === 'balance') {
-            client.econ.get('balance').execute(client, Discord, message, args, fetch);
-        } else if (command === 'give') {
-            client.econ.get('give').execute(client, Discord, message, args, fetch, math);
-        } else if (command === 'register') {
-            client.econ.get('register').execute(client, Discord, message, args, fetch);
-        } else if (command === 'store') {
-            client.econ.get('store').execute(client, Discord, message, args, fetch)
-        } else if (command === 'buy') {
-            client.econ.get('buy').execute(client, Discord, message, args, fetch, math);
-        } else if (command === 'close') {
-            client.econ.get('close').execute(client, Discord, message, args, fetch);
+        } else if (command === 'unban') {
+            client.moderation.get('unban').execute(client, Discord, message, args);
+        } else if (command === 'modme') {
+            client.moderation.get('modme').execute(client, Discord, message, args, util);
+        } else if (command === 'opme') {
+            client.moderation.get('opme').execute(client, Discord, message, args, util);
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.moderation.get('mod-help').execute(client, Discord, message, args);
@@ -158,8 +139,4 @@ for(const file of econFiles){
 
     });
 
-
-// Gets the token from the gitignore'd file ;)
-const token = process.env.DISCORD_TOKEN
-
-client.login(`${token}`)
+client.login(token)
