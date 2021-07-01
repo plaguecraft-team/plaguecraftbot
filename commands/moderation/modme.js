@@ -11,7 +11,7 @@ module.exports = {
         const mcClient = new util.RCON(`${process.env.ip}`, { port: 8031, enableSRV: false, timeout: 5000, password: `${process.env.rconpass}` }); // These are the default options
 
         mcClient.on('output', (opt) => {
-            message.reply(`Command sent & done. Output: ` + opt)
+            message.reply(`Command sent & done.`)
             mcClient.close();
         });
 

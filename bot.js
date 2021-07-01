@@ -86,7 +86,7 @@ for(const file of modFiles){
      
         // General Commands
         if(command === 'help'){
-            client.commands.get('help').execute(client, Discord, message, args, slash);
+            client.commands.get('help').execute(client, Discord, message, args);
         } else if (command === 'ping') {
             client.commands.get('ping').execute(client, Discord, message, args);
         } else if (command === 'suggest') {
