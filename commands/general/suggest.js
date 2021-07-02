@@ -12,7 +12,17 @@ module.exports = {
         } else {
 
             if(!args[0]) {
-                return message.channel.send(`You need to provide something to suggest, ${message.author}!`)
+                const synEmbed = new Discord.MessageEmbed()
+                .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+                .setTitle(`pcn!suggest`)
+                .setColor(color)
+                .addFields(
+                    { name: 'Description', value: 'Submits a suggestion to the suggestion channel.'},
+                    { name: 'Syntax', value: 'pcn!suggest [suggestion]' },
+                    { name: 'Missing Field', value: 'No suggestion supplied'}
+                )
+    
+                return message.channel.send(synEmbed)
             }
             
             let messageArgs = args.join(' '); // Same thing as stats.js, but make it not have ',,,' in between

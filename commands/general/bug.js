@@ -1,9 +1,20 @@
 module.exports = {
     name: 'bug',
-    execute(client, Discord, message, args, color) {
+    execute(client, Discord, message, args, color, thumb) {
 
         if(!args[0]) {
-            return message.channel.send(`You need to add the bug you're facing to this message!`)
+            // return message.channel.send(`You need to add the bug you're facing to this message!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!bug`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Submits a bug report to the bugs channel.'},
+                { name: 'Syntax', value: 'pcn!bug [bug]' },
+                { name: 'Missing Field', value: 'No bug supplied' }
+            )
+
+            return message.channel.send(synEmbed)
         }
 
         const bug = args.slice(0).join(' ');

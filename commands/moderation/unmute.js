@@ -6,9 +6,29 @@ module.exports = {
         if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
             return message.channel.send('You do not have the permissions to run this command!')
         } else if (!args.length) {
-            return message.reply(`You didn't specify a user to unmute!`);
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!unmute`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Unmute a user that has been muted.'},
+                { name: 'Syntax', value: 'pcn!unmute [user]' },
+                { name: 'Missing Field', value: 'No user supplied' }
+            )
+
+            return message.channel.send(synEmbed)
         } else if (member === message.author) {
-            return message.channel.send(`How are you expecting to unmute yourself when you can't even mute yourself in the first place?`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!unmute`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Unmute a user that has been muted.'},
+                { name: 'Syntax', value: 'pcn!unmute [user]' },
+                { name: 'Missing Field', value: 'STOP TRYING TO PUNISH YOURSELF!!!!!!!' }
+            )
+
+            return message.channel.send(synEmbed)
         }
 
         if(member) {

@@ -6,15 +6,66 @@ module.exports = {
         if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){ // Returns a message if the user is not a mod
             return message.channel.send('You do not have the permissions to run this command!')
         } else if (!args[0]) {
-            return message.channel.send(`You need to specify what you want to do (ban or mute)!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!temp`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Allows mods to temp mute or ban a user in one command.'},
+                { name: 'Syntax', value: 'pcn!temp [mute/ban] [user] [duration] [reason]' },
+                { name: 'Missing Field', value: 'mute/ban not stated' }
+            )
+
+            return message.channel.send(synEmbed)
         } else if (!args[1]) {
-            return message.channel.send(`You need to specify a user to ${args[0]}!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!temp`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Allows mods to temp mute or ban a user in one command.'},
+                { name: 'Syntax', value: 'pcn!temp [mute/ban] [user] [duration] [reason]' },
+                { name: 'Missing Field', value: 'No user supplied' }
+            )
+
+            return message.channel.send(synEmbed)
         } else if (!args[2]) {
-            return message.channel.send(`You didn't specify a duration of time to ${args[0]} this user for!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!temp`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Allows mods to temp mute or ban a user in one command.'},
+                { name: 'Syntax', value: 'pcn!temp [mute/ban] [user] [duration] [reason]' },
+                { name: 'Missing Field', value: 'duration' }
+            )
+
+            return message.channel.send(synEmbed)
         } else if (isNaN(args[0])) {
-            return message.channel.send(`Please provide a real number (with s, m, or h) for the duration.`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!temp`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Allows mods to temp mute or ban a user in one command.'},
+                { name: 'Syntax', value: 'pcn!temp [mute/ban] [user] [duration] [reason]' },
+                { name: 'Missing Field', value: 'isNaN' }
+            )
+
+            return message.channel.send(synEmbed)
         } else if (member === message.author) {
-            return message.channel.send(`You can't ${args[0]} yourself!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!temp`)
+            .setColor(color)
+            .setDescription(`Allows mods to temp mute or ban a user in one command.`)
+            .addFields(
+                { name: 'Description', value: 'Allows mods to temp mute or ban a user in one command.'},
+                { name: 'Syntax', value: 'pcn!temp [mute/ban] [user] [duration] [reason]' },
+                { name: 'Missing Field', value: 'Self-punishment (stop that!)' }
+            )
+
+            return message.channel.send(synEmbed)
         } else {
             try {
                 if(args[0] === 'ban') {

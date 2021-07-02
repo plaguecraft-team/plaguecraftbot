@@ -6,9 +6,29 @@ module.exports = {
 		const member = message.mentions.users.first();
 
 		if(!args[0]) {
-			return message.channel.send(`You didn't specify a user!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!report`)
+            .setColor(color)
+            .addFields(
+				{ name: 'Description', value: 'Reports the tagged user.'},
+                { name: 'Syntax', value: 'pcn!report [user] [reason]' },
+                { name: 'Missing Field', value: 'No user supplied' }
+            )
+
+            return message.channel.send(synEmbed)
 		} else if(!args[1]) {
-			return message.channel.send(`You didn't specify a reason!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!report`)
+            .setColor(color)
+            .addFields(
+				{ name: 'Description', value: 'Reports the tagged user.'},
+                { name: 'Syntax', value: 'pcn!report [user] [reason]' },
+                { name: 'Missing Field', value: 'No reason supplied' }
+            )
+
+            return message.channel.send(synEmbed)
 		}
 
 		const reason = args.slice(1).join(' ');

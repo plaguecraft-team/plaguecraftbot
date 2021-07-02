@@ -6,11 +6,41 @@ module.exports = {
 		if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
 			return message.channel.send('You do not have the permissions to run this command!')
 		} else if (member === message.author) {
-            return message.channel.send(`You can't kick yourself, ${message.author}!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!kick`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Kicks specified user (CANNOT BE YOURSELF).'},
+                { name: 'Syntax', value: 'pcn!kick [user] [reason]' },
+                { name: 'Missing Field', value: 'Self-punishment (I SAID STOP WHYYYY)'}
+            )
+
+            return message.channel.send(synEmbed)
         } else if(!args[0]) {
-            return message.channel.send('You need to specify a user to kick!')
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!kick`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Kicks specified user (CANNOT BE YOURSELF).'},
+                { name: 'Syntax', value: 'pcn!kick [user] [reason]' },
+                { name: 'Missing Field', value: 'No user supplied'}
+            )
+
+            return message.channel.send(synEmbed)
         } else if (!args[1]) {
-            return message.channel.send(`You need to specify why you're banning this user!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!kick`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Kicks specified user (CANNOT BE YOURSELF).'},
+                { name: 'Syntax', value: 'pcn!kick [user] [reason]' },
+                { name: 'Missing Field', value: 'No reason supplied'}
+            )
+
+            return message.channel.send(synEmbed)
         }
 
         if (member) {

@@ -6,11 +6,41 @@ module.exports = {
         if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")) {
             return message.channel.send(`You don't have the correct permissions to run this command.`)
         } else if (!args[0]) {
-            return message.channel.send(`You need to specify who you want to ban.`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!ban`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Bans a user.'},
+                { name: 'Syntax', value: 'pcn!ban [user] [reason]' },
+                { name: 'Missing Field', value: 'No user supplied'}
+            )
+
+            return message.channel.send(synEmbed)
         } else if (member === message.author) {
-            return message.channel.send(`You can't ban yourself!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!ban`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Bans a user.'},
+                { name: 'Syntax', value: 'pcn!ban [user] [reason]' },
+                { name: 'Missing Field', value: 'Self punishment (Why.)'}
+            )
+
+            return message.channel.send(synEmbed)
         } else if (!args[1]) {
-            return message.channel.send(`You need to give a reason for banning this user.`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!ban`)
+            .setColor(color)
+            .addFields(
+                { name: 'Description', value: 'Bans a user.'},
+                { name: 'Syntax', value: 'pcn!ban [user] [reason]' },
+                { name: 'Missing Field', value: 'Reason'}
+            )
+
+            return message.channel.send(synEmbed)
         }
 
         if(member) {

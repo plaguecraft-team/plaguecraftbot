@@ -128,11 +128,9 @@ for(const file of helpFiles){
         } else if (command === 'announce') {
             client.commands.get('announce').execute(client, Discord, message, args, ms);
         } else if (command === 'bug') {
-            client.commands.get('bug').execute(client, Discord, message, args, color);
-        } else if (command === 'clips') {
-            client.commands.get('clips').execute(client, Discord, message, args, fetch);
+            client.commands.get('bug').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'invite') {
-            return message.channel.send(`https://plaguecraft.xyz/discord`)
+            return message.channel.send(`https://dsc.gg/pcn`)
             // Moderation
         } else if (command === 'ban') {
             client.moderation.get('ban').execute(client, Discord, message, args, color, thumb);
@@ -143,7 +141,7 @@ for(const file of helpFiles){
         } else if (command === 'temp') {
             client.moderation.get('temp').execute(client, Discord, message, args, ms, color, thumb);
         } else if (command === 'purge') {
-            client.moderation.get('purge').execute(client, Discord, message, args);
+            client.moderation.get('purge').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'unmute') {
             client.moderation.get('unmute').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'mod-help') {
@@ -151,9 +149,9 @@ for(const file of helpFiles){
         } else if (command === 'unban') {
             client.moderation.get('unban').execute(client, Discord, message, args);
         } else if (command === 'modme') {
-            client.moderation.get('modme').execute(client, Discord, message, args, util);
+            client.moderation.get('modme').execute(client, Discord, message, args, util, color, thumb);
         } else if (command === 'opme') {
-            client.moderation.get('opme').execute(client, Discord, message, args, util);
+            client.moderation.get('opme').execute(client, Discord, message, args, util, color, thumb);
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
             client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
@@ -162,7 +160,7 @@ for(const file of helpFiles){
             .setColor(color)
             .setAuthor(`The PlagueCraft Network`, `${thumb}`, 'https://plaguecraft.xyz')
             .setTitle(`Sorry, that's not a command.`)
-            .setDescription(`Make sure you've typed it correctly. \nRun the help command to learn more.`)
+            .setDescription(`Make sure you've typed it correctly. \nRun the **pcn!help** command to learn more.`)
             .setTimestamp();
 
             return message.channel.send(notfound);

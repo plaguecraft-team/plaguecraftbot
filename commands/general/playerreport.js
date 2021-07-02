@@ -3,11 +3,31 @@ module.exports = {
     async execute(Discord, client, message, args, minecraftPlayer, color, thumb) {
 
 		if(!args[0]) {
-			return message.reply(`you didn't specify a user!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!playerreport`)
+            .setColor(color)
+            .addFields(
+				{ name: 'Description', value: 'Submits a MC player report to the team via Discord.'},
+                { name: 'Syntax', value: 'pcn!playerreport [ign-to-report]' },
+				{ name: 'Missing Field', value: 'No IGN supplied'}
+            )
+
+            return message.channel.send(synEmbed)
 		}
 
 		if(!args[1]) {
-			return message.reply(`you didn't specify why you're reporting this user!`)
+            const synEmbed = new Discord.MessageEmbed()
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+            .setTitle(`pcn!playerreport`)
+            .setColor(color)
+            .addFields(
+				{ name: 'Description', value: 'Submits a MC player report to the team via Discord.'},
+                { name: 'Syntax', value: 'pcn!playerreport [ign-to-report]' },
+				{ name: 'Missing Field', value: 'No reason supplied'}
+            )
+
+            return message.channel.send(synEmbed)
 		}
 
 		try{
