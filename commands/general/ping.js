@@ -2,6 +2,6 @@ module.exports = {
 	name: 'ping',
 	description: "Calculates bot ping and tests latency.",
 	execute(client, Discord, message, args) {
-		message.channel.send(`:ping_pong:\nThe current ping between you and the bot is ${Date.now() - message.createdTimestamp}ms.`)
+		return message.channel.send(`:ping_pong:\nBot latency: ${Date.now() - message.createdTimestamp}ms\nDiscord API Latency: ${Math.round(client.ws.ping)}ms`)
 	}
 }

@@ -14,9 +14,11 @@ const minecraftPlayer = require('minecraft-player');
 const util = require('minecraft-server-util');
 
 // Gets config stuffs
-const { token } = require('./config.json')
-const { prefix } = require('./config.json')
+const { token, prefix } = require('./configs/client.json');
 require('dotenv').config();
+
+// Get Embed Assets
+const { color, thumb } = require('./configs/embeds.json')
 
 // Create the bot client & Initilize button support
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -24,6 +26,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 // Prepare the command handlers
 client.commands = new Discord.Collection();
 client.moderation = new Discord.Collection();
+client.help = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/general').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
@@ -39,21 +42,27 @@ for(const file of modFiles){
     client.moderation.set(command.name, command);
 }
 
+const helpFiles = fs.readdirSync('./commands/help').filter(file => file.endsWith('.js'));
+for(const file of helpFiles){
+    const command = require(`./commands/help/${file}`);
+ 
+    client.help.set(command.name, command);
+}
+
     client.once('ready', async () => {
         console.log('The PlagueCraft Discord Bot has now come online! Fear me mortals!');
         client.user.setActivity("pcn!help");
     });
 
     client.on('guildMemberAdd', async member => {
-        const channel = member.guild.channels.cache.get('840335580730621982');
+        const channel = member.guild.channels.cache.get(process.env.joinLog);
         if (!channel) return;
     
         const joinEmbed = new Discord.MessageEmbed()
+        .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz/`)
         .setTitle(`User joined!`)
         .setDescription(`Welcome ${member} to the server!`)
-        .setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
-        .setColor(`#c7002e`)
-        .setFooter('PCN')
+        .setColor(color)
         .setTimestamp();
 
         channel.send(joinEmbed)
@@ -65,13 +74,14 @@ for(const file of modFiles){
             console.log(`${length} messages were purged:`, messages.map(message => `[${message.author.tag}]: ${message.content}`))
           
             const embed = new Discord.MessageEmbed()
+              .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
               .setTitle(`${length} Messages purged in #${channel}`)
               .setDescription(messages.map(message => `[${message.author.tag}]: ${message.content}`))
               .setFooter(`${length} latest shown`)
-              .setColor('#c7002e')
+              .setColor(color)
               .setTimestamp();
           
-            (await client.channels.fetch(`856717388749340673`)).send(embed);
+            (await client.channels.fetch(process.env.messageLog)).send(embed);
           });
      
     client.on('message', async message =>{
@@ -82,50 +92,62 @@ for(const file of modFiles){
 
         process.on('unhandledRejection', error => {
             console.error('Unhandled promise rejection:', error);
+
+            fetch(process.env.errWebUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: 'PlagueCraftBot - Errors',
+                    avatar_url: 'https://plaguecraft.xyz/storage/assets/img/logo-blue.jpg',
+                    content: `**There's been an error in the bot!**\nCommand that errored out: pcn!${command}\n\n${error}`
+                })
+            })
         });
      
-        // General Commands
+        // Help Commands
         if(command === 'help'){
-            client.commands.get('help').execute(client, Discord, message, args);
+            client.help.get('help').execute(client, Discord, message, args, color, thumb);
+        } else if (message.content === 'pcn!') {
+            return message.channel.send('Hey! Thanks for coming :)\nRun **pcn!help** for more info!')
         } else if (command === 'ping') {
             client.commands.get('ping').execute(client, Discord, message, args);
         } else if (command === 'suggest') {
-            client.commands.get('suggest').execute(client, Discord, message, args);
-        } else if (command === 'support') {
-            client.commands.get('support').execute(client, Discord, message, args);
+            client.commands.get('suggest').execute(client, Discord, message, args, color);
         } else if (command === 'ticket') {
             client.commands.get('ticket').execute(client, Discord, message, args);
         } else if (command === 'ip') {
             client.commands.get('ip').execute(client, Discord, message, args);
         } else if (command === 'report') {
-            client.moderation.get('report').execute(client, Discord, message, args);
+            client.moderation.get('report').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'playerreport') {
-            client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer);
+            client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer, color, thumb);
         } else if (command === 'status') {
-            client.commands.get('status').execute(client, Discord, message, args, fetch);
+            client.commands.get('status').execute(client, Discord, message, args, fetch, color, thumb);
         } else if (command === 'announce') {
             client.commands.get('announce').execute(client, Discord, message, args, ms);
         } else if (command === 'bug') {
-            client.commands.get('bug').execute(client, Discord, message, args);
+            client.commands.get('bug').execute(client, Discord, message, args, color);
         } else if (command === 'clips') {
             client.commands.get('clips').execute(client, Discord, message, args, fetch);
         } else if (command === 'invite') {
             return message.channel.send(`https://plaguecraft.xyz/discord`)
             // Moderation
         } else if (command === 'ban') {
-            client.moderation.get('ban').execute(client, Discord, message, args);
+            client.moderation.get('ban').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'kick') {
-            client.moderation.get('kick').execute(client, Discord, message, args);
+            client.moderation.get('kick').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'mute') {
-            client.moderation.get('mute').execute(client, Discord, message, args);
+            client.moderation.get('mute').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'temp') {
-            client.moderation.get('temp').execute(client, Discord, message, args, ms);
+            client.moderation.get('temp').execute(client, Discord, message, args, ms, color, thumb);
         } else if (command === 'purge') {
             client.moderation.get('purge').execute(client, Discord, message, args);
         } else if (command === 'unmute') {
-            client.moderation.get('unmute').execute(client, Discord, message, args);
+            client.moderation.get('unmute').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'mod-help') {
-            client.moderation.get('mod-help').execute(client, Discord, message, args);
+            client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
         } else if (command === 'unban') {
             client.moderation.get('unban').execute(client, Discord, message, args);
         } else if (command === 'modme') {
@@ -134,7 +156,16 @@ for(const file of modFiles){
             client.moderation.get('opme').execute(client, Discord, message, args, util);
             // Alias handling. Probably not the most ethical way to do it, but.. it works!
         } else if (command === 'mh') {
-            client.moderation.get('mod-help').execute(client, Discord, message, args);
+            client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
+        } else {
+            const notfound = new Discord.MessageEmbed()
+            .setColor(color)
+            .setAuthor(`The PlagueCraft Network`, `${thumb}`, 'https://plaguecraft.xyz')
+            .setTitle(`Sorry, that's not a command.`)
+            .setDescription(`Make sure you've typed it correctly. \nRun the help command to learn more.`)
+            .setTimestamp();
+
+            return message.channel.send(notfound);
         }
 
     });

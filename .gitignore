@@ -1,6 +1,5 @@
-config.json
+configs/client.json
 node_modules
 package-lock.json
 .env
-commands/moderation/unban.js
 commands/moderation/unban.js

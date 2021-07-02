@@ -36,7 +36,7 @@ module.exports = {
             }
 
             const announcement = args.slice(1).join(' ');
-            const annoucementsChannel = client.channels.cache.find(channel => channel.name === "🔊announcements🔊")
+            const annoucementsChannel = client.channels.cache.find(channel => channel.id === "801092024354078750")
             annoucementsChannel.send(`${announcement}\n ~ ${message.author.username}`)
 
         } else if (args[0] === 'testsend') {

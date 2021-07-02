@@ -3,9 +3,9 @@
 module.exports = {
 	name: 'suggest',
 	description: "Suggestions from people",
-    async execute(client, Discord, message, args, ) {
+    async execute(client, Discord, message, args, color) {
         
-        const channel = client.channels.cache.find(channel => channel.id === "803900853302853653"); // Find the suggestions channel
+        const channel = client.channels.cache.find(channel => channel.id === process.env.suggestionChannel); // Find the suggestions channel
 
         if(!channel) { // If it doesn't exist, return this and break from the rest of the code.
             return message.channel.send('The suggestion channel does not exist! Please check with the admins of this server.');
@@ -19,13 +19,13 @@ module.exports = {
 
             const suggestionEmbed = new Discord.MessageEmbed() // embed
         .setTitle(`New Suggestion!`)
-        .setColor('#c7002e')
+        .setColor(color)
         .setAuthor(`${message.author.username}`, message.author.avatarURL())
         .setDescription(`${message.author} has suggested the following: ${messageArgs}`)
         .setFooter(`PCN Suggestions`)
         .setTimestamp();
 
-        console.log(`${message.author.username} has made the following suggestion: ${messageArgs}`) // Log the suggestion
+        console.log(`${message.author.tag} has made the following suggestion: ${messageArgs}`) // Log the suggestion
 
         return channel.send(suggestionEmbed).then((msg) =>{ // Add reactions
             msg.react('👍');

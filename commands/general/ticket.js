@@ -4,8 +4,8 @@ module.exports = {
     name: 'ticket',
     async execute(client, Discord, message, args) {
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`); // Define how to create the channel
-        channel.setParent('774727207671037955'); // Category ID of the channel 
-        const modrole = message.guild.roles.cache.get("829362215286210591"); 
+        channel.setParent('837797524244004864'); // Category ID of the channel 
+        const modrole = message.guild.roles.cache.get("837797524244004864"); 
 
         channel.updateOverwrite(message.guild.id, {
             SEND_MESSAGE: false,
@@ -23,12 +23,12 @@ module.exports = {
         });
 
         const ticketEmbed = new Discord.MessageEmbed() // Shoot the team a ticket notification
+        .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
         .setTitle('Ticket Notification!')
-        .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
         .setDescription(`${message.author} has created a new ticket!`)
-        .setColor('#03fc41')  
+        .setColor(color)  
 
-        const channelnoti = client.channels.cache.find(channel => channel.id === "843239726366720020") // Find the team's notification channel
+        const channelnoti = client.channels.cache.find(channel => channel.id === process.env.supportLog) // Find the team's notification channel
 
         channelnoti.send(ticketEmbed) // Send that embed
 

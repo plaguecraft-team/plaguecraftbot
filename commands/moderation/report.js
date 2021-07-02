@@ -1,16 +1,14 @@
 module.exports = {
 	name: 'report',
 	description: 'Allows someone to report a user',
-	execute(client, Discord, message, args) {
+	execute(client, Discord, message, args, color, thumb) {
 
-		const target = message.mentions.users.first();
+		const member = message.mentions.users.first();
 
 		if(!args[0]) {
-			return message.reply(`you didn't specify a user!`)
-		}
-
-		if(!args[1]) {
-			return message.reply(`you didn't specify a reason!`)
+			return message.channel.send(`You didn't specify a user!`)
+		} else if(!args[1]) {
+			return message.channel.send(`You didn't specify a reason!`)
 		}
 
 		const reason = args.slice(1).join(' ');
@@ -18,15 +16,17 @@ module.exports = {
 
 		const reportEmbed = new Discord.MessageEmbed()
 		.setTitle(`Report!`)
-		.setColor(`#c7002e`)
-		.setThumbnail(`https://plaguecraft.xyz/storage/assets/img/logo.png`)
-		.setDescription(`${message.author} has reported ${target} for:\n "${reason}".\n\n**Target Users UID: ${target.id}**`)
-		.setFooter(`PCN Reports`)
+		.setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
+		.setColor(color)
+		.addFields(
+			{ name: 'Reported User', value: member.tag },
+			{ name: 'Reporter', value: message.author.tag },
+			{ name: 'Reason', value: reason }
+		)
 		.setTimestamp();
 
-            const channel = client.channels.cache.find(channel => channel.id === "856721110564470784")
+            const channel = client.channels.cache.find(channel => channel.id === process.env.reportsLog)
 			channel.send(reportEmbed);
-			console.log(`${message.author} has made a report on ${target} for "${reason}"`)
-			message.author.send(`Thanks for your report on ${target}. It's been sent to our team for further review!\nAs always, if this user is harassing you via direct message or in other means, please block them. We'll report them to Discord if deemed needed by our Moderation Team.\n<3,\nThe PlagueCraft Development Team`)
+			console.log(`${message.author.username} has made a report on ${member.username} for "${reason}"`)
 	}
 }

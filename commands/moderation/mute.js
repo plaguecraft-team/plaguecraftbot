@@ -1,6 +1,7 @@
 module.exports = {
     name: 'mute',
-    execute(client, Discord, message, args) {
+    async execute(client, Discord, message, args, color, thumb) {
+
         const member = message.mentions.users.first();
 
         if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
@@ -8,39 +9,41 @@ module.exports = {
         } else if(member === message.author) {
             return message.channel.send(`You can't mute yourself, ${message.author}!`)
         } else if(!args[0]) {
-            return message.reply(`you didn't specify a user!`);
+            return message.channel.send(`You didn't specify a user!`);
         } else if(!args[1]) {
-            return message.reply(`you didn't specify a reason!`)
+            return message.channel.send(`You didn't specify a reason!`)
         }
 
         if(member) {
             const reason = args.slice(1).join(' ');
             let muteRole = message.guild.roles.cache.find(role => role.name === 'Muted');
             let memberTarget = message.guild.members.cache.get(member.id);
+
             try {
                 memberTarget.roles.add(muteRole.id)
                 message.react('✔️')
-                console.log(`${memberTarget.username} was muted by ${message.author.username} for ${reason}.`)
+                console.log(`${member.tag} was muted by ${message.author.tag} for ${reason}.`)
 
                 const muteEmbed = new Discord.MessageEmbed()
-            
+                .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
                 .setTitle('Muted!')
-                .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
-                .setDescription(`${message.author} has muted ${memberTarget}!\nReason: "${reason}"`)
-                .setColor('#c7002e')
-                .setFooter('PCN Mutes')
+                .addFields(
+                    { name: `User`, value: member.tag },
+                    { name: 'Muted by', value: message.author.tag },
+                    { name: `Reason`, value: reason }
+                )
+                .setColor(color)
                 .setTimestamp();
     
-                const channel = client.channels.cache.find(channel => channel.id === "856717402447675392")
+                const channel = await message.guild.channels.cache.find(channel => channel.id === process.env.punishmentLog)
                 channel.send(muteEmbed)
             }
             catch (err) {
-                console.log(`There was an error trying to mute ${memberTarget.username}:`, err)
-                return message.channel.send(`I couldn't mute ${memberTarget.username} due to an internal error. Please contact Awex or someone from the dev team.`)
+                return message.channel.send(`I couldn't mute ${member.tag} due to an internal error. The team has been notified of this error.`)
             }
 
-        } else if (!member) {
-            return message.channel.send(`I couldn't find ${member.username}.`)
+        } else if (!member || !memberTarget) {
+            return message.channel.send(`I couldn't find that user.`)
         }
     }
 }

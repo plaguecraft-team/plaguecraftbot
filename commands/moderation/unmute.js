@@ -1,6 +1,6 @@
 module.exports = {
     name: 'unmute',
-    execute(client, Discord, message, args) {
+    execute(client, Discord, message, args, color, thumb) {
         const member = message.mentions.users.first();
 
         if(!message.member.roles.cache.some(r => r.name === "Mod Bot User")){
@@ -13,29 +13,30 @@ module.exports = {
 
         if(member) {
             let muteRole = message.guild.roles.cache.find(role => role.name === 'Muted');
-            let memberTarget = message.guild.members.cache.get(target.id);
+            let memberTarget = message.guild.members.cache.get(member.id);
 
             try {
                 memberTarget.roles.remove(muteRole.id);
-                message.channel.send(`${memberTarget} has been unmuted.`)  
-                console.log(`UID ${memberTarget} has been unmuted!`)     
+                message.react('✔️')  
+                console.log(`User ${member.tag} has been unmuted!`)     
                 
-                const channel = client.channels.cache.find(channel => channel.id === "856717402447675392")
+                const channel = client.channels.cache.find(channel => channel.id === process.env.punishmentLog)
     
                 const unmuteEmbed = new Discord.MessageEmbed()
                 
+                .setAuthor(`The PlagueCraft Network`, `${thumb}`, `https://plaguecraft.xyz`)
                 .setTitle('Unmuted!')
-                .setThumbnail('https://plaguecraft.xyz/storage/assets/img/logo.png')
-                .setDescription(`${message.author} has unmuted ${memberTarget}!`)
-                .setColor('#03fc41')  
-                .setFooter(`PCN Unmutes`)
+                .addFields(
+                    { name: 'User', value: member.tag }, 
+                    { name: 'Unmuted by', value: message.author.tag }
+                )
+                .setColor(color)  
                 .setTimestamp();
     
                 channel.send(unmuteEmbed);
             }
             catch (err) {
-                console.log(`There was an error while trying to unmute ${memberTarget}:`, err)
-                return message.channel.send(`I couldn't unmute ${memberTarget} due to an internal error. Please contact Awex or someone from the dev team.`)
+                return message.channel.send(`I couldn't unmute ${member.tag} due to an internal error. The team has been notified of this error.`)
             }
         }
     }
