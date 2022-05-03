@@ -20,7 +20,7 @@ module.exports = {
     async execute(interaction, args, author) {
         const bug = args.slice(0).join(' ');
         const channel = interaction.client.channels.cache.find(channel => channel.id == "971055728230039552");
-        interaction.client.users.fetch(`${author.id}`).then(function(result) {
+        interaction.client.users.fetch(`${author.id}`).then(async function(result) {
             const imgUrl = result.displayAvatarURL();
 
             const bugEmbed = new MessageEmbed()
