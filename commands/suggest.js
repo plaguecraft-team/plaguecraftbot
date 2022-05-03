@@ -29,6 +29,6 @@ module.exports = {
         .setTimestamp();
 
         channel.send({ embeds: [suggestionEmbed] });
-        return interaction.reply("Thanks! We've submitted your suggestion :)")
+        return interaction.reply({ content: "Thanks! We've submitted your suggestion :)", ephemeral: true })
     }
 }

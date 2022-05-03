@@ -29,7 +29,7 @@ module.exports = {
             .setFooter({ text: `PlagueCraft Network`, iconURL: `https://plaguecraft.xyz/static/img/logo.png` })
             .setTimestamp();
 
-            channel.send({ embeds: [bugEmbed] });
+            channel.send({ embeds: [bugEmbed], ephemeral: true });
             return await interaction.reply("Thanks for your report! We'll look into it :)");
         })
     }
