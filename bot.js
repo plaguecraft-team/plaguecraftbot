@@ -29,7 +29,7 @@ for (const file of eventFiles) {
 	}
 }
 
-client.login(tokens.dev)
+client.login(tokens[env])
 
 // // Create the bot client & Initilize button support
 // const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
