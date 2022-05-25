@@ -29,7 +29,7 @@ for (const file of eventFiles) {
 	}
 }
 
-client.login(tokens[env])
+client.login(tokens["prod"])
 
 // // Create the bot client & Initilize button support
 // const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -117,65 +117,65 @@ client.login(tokens[env])
 //     //         })
 //     //     });
      
-//     //     // Help Commands
-//     //     if(command === 'help'){
-//     //         client.help.get('help').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (message.content === 'pcn!') {
-//     //         return message.channel.send('Hey! Thanks for coming :)\nRun **pcn!help** for more info!')
-//     //     } else if (command === 'ping') {
-//     //         client.commands.get('ping').execute(client, Discord, message, args);
-//     //     } else if (command === 'suggest') {
-//     //         client.commands.get('suggest').execute(client, Discord, message, args, color);
-//     //     } else if (command === 'ticket') {
-//     //         client.commands.get('ticket').execute(client, Discord, message, args);
-//     //     } else if (command === 'ip') {
-//     //         client.commands.get('ip').execute(client, Discord, message, args);
-//     //     } else if (command === 'report') {
-//     //         client.moderation.get('report').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'playerreport') {
-//     //         client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer, color, thumb);
-//     //     } else if (command === 'status') {
-//     //         client.commands.get('status').execute(client, Discord, message, args, fetch, color, thumb);
-//     //     } else if (command === 'announce') {
-//     //         client.commands.get('announce').execute(client, Discord, message, args, ms);
-//     //     } else if (command === 'bug') {
-//     //         client.commands.get('bug').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'invite') {
-//     //         return message.channel.send(`https://dsc.gg/pcn`)
-//     //         // Moderation
-//     //     } else if (command === 'ban') {
-//     //         client.moderation.get('ban').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'kick') {
-//     //         client.moderation.get('kick').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'mute') {
-//     //         client.moderation.get('mute').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'temp') {
-//     //         client.moderation.get('temp').execute(client, Discord, message, args, ms, color, thumb);
-//     //     } else if (command === 'purge') {
-//     //         client.moderation.get('purge').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'unmute') {
-//     //         client.moderation.get('unmute').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'mod-help') {
-//     //         client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
-//     //     } else if (command === 'unban') {
-//     //         client.moderation.get('unban').execute(client, Discord, message, args);
-//     //     } else if (command === 'modme') {
-//     //         client.moderation.get('modme').execute(client, Discord, message, args, util, color, thumb);
-//     //     } else if (command === 'opme') {
-//     //         client.moderation.get('opme').execute(client, Discord, message, args, util, color, thumb);
-//     //         // Alias handling. Probably not the most ethical way to do it, but.. it works!
-//     //     } else if (command === 'mh') {
-//     //         client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
-//     //     } else {
-//     //         const notfound = new Discord.MessageEmbed()
-//     //         .setColor(color)
-//     //         .setAuthor(`The PlagueCraft Network`, `${thumb}`, 'https://plaguecraft.xyz')
-//     //         .setTitle(`Sorry, that's not a command.`)
-//     //         .setDescription(`Make sure you've typed it correctly. \nRun the **pcn!help** command to learn more.`)
-//     //         .setTimestamp();
+        // // Help Commands
+        // if(command === 'help'){
+        //     client.help.get('help').execute(client, Discord, message, args, color, thumb);
+        // } else if (message.content === 'pcn!') {
+        //     return message.channel.send('Hey! Thanks for coming :)\nRun **pcn!help** for more info!')
+        // } else if (command === 'ping') {
+        //     client.commands.get('ping').execute(client, Discord, message, args);
+        // } else if (command === 'suggest') {
+        //     client.commands.get('suggest').execute(client, Discord, message, args, color);
+        // } else if (command === 'ticket') {
+        //     client.commands.get('ticket').execute(client, Discord, message, args);
+        // } else if (command === 'ip') {
+        //     client.commands.get('ip').execute(client, Discord, message, args);
+        // } else if (command === 'report') {
+        //     client.moderation.get('report').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'playerreport') {
+        //     client.commands.get('playerreport').execute(Discord, client, message, args, minecraftPlayer, color, thumb);
+        // } else if (command === 'status') {
+        //     client.commands.get('status').execute(client, Discord, message, args, fetch, color, thumb);
+        // } else if (command === 'announce') {
+        //     client.commands.get('announce').execute(client, Discord, message, args, ms);
+        // } else if (command === 'bug') {
+        //     client.commands.get('bug').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'invite') {
+        //     return message.channel.send(`https://dsc.gg/pcn`)
+        //     // Moderation
+        // } else if (command === 'ban') {
+        //     client.moderation.get('ban').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'kick') {
+        //     client.moderation.get('kick').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'mute') {
+        //     client.moderation.get('mute').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'temp') {
+        //     client.moderation.get('temp').execute(client, Discord, message, args, ms, color, thumb);
+        // } else if (command === 'purge') {
+        //     client.moderation.get('purge').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'unmute') {
+        //     client.moderation.get('unmute').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'mod-help') {
+        //     client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
+        // } else if (command === 'unban') {
+        //     client.moderation.get('unban').execute(client, Discord, message, args);
+        // } else if (command === 'modme') {
+        //     client.moderation.get('modme').execute(client, Discord, message, args, util, color, thumb);
+        // } else if (command === 'opme') {
+        //     client.moderation.get('opme').execute(client, Discord, message, args, util, color, thumb);
+        //     // Alias handling. Probably not the most ethical way to do it, but.. it works!
+        // } else if (command === 'mh') {
+        //     client.moderation.get('mod-help').execute(client, Discord, message, args, color, thumb);
+        // } else {
+        //     const notfound = new Discord.MessageEmbed()
+        //     .setColor(color)
+        //     .setAuthor(`The PlagueCraft Network`, `${thumb}`, 'https://plaguecraft.xyz')
+        //     .setTitle(`Sorry, that's not a command.`)
+        //     .setDescription(`Make sure you've typed it correctly. \nRun the **pcn!help** command to learn more.`)
+        //     .setTimestamp();
 
-//     //         return message.channel.send(notfound);
-//     //     }
+        //     return message.channel.send(notfound);
+        // }
 
 //     // });
 
