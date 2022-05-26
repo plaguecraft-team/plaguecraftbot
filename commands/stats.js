@@ -33,8 +33,7 @@ module.exports = {
         requireArgs: true
     },
     async execute(interaction, args, author) {
-        console.log(args)
-        const d = await fetch("https://api.plaguecraft.xyz/" + args[1].toLowerCase() + "?username=" + args[0], {
+        await fetch("https://api.plaguecraft.xyz/" + args[1].toLowerCase() + "?username=" + args[0], {
             method: 'get',
             headers: {
                 'content-type': 'application/json'

@@ -24,6 +24,8 @@ module.exports = {
 				return interaction.reply(`Sorry, something went wrong. That command likely doesn't exist on the server.`)
 			}
 		}
+
+		if (!command.info) return interaction.reply(`Sorry, something went wrong. That command likely doesn't exist on the server.`)
 	
 			const helpEmbed = new MessageEmbed()
 			.setTitle(`Command Help - ${command.info.name}`)
