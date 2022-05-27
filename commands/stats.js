@@ -73,6 +73,8 @@ module.exports = {
 
                 return interaction.reply({ embeds: [embed] });
             }
+        }).catch(function(err) {
+            return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
         });
     }
 }

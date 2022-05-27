@@ -19,6 +19,8 @@ module.exports = {
             if (response.status == 200) return interaction.reply("Great, you've been unlinked!");
             else if (response.status == 404) return interaction.reply({ content: `Uh oh! API returned "${j.message}"!`, ephemeral: true});
             else return interaction.reply({ content: `Uh oh! Something went wrong:\n${JSON.stringify(j)}`, ephemeral: true });
-        })
+        }).catch(function(err) {
+            return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
+        });
     }
 }

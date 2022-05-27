@@ -102,7 +102,7 @@ module.exports = {
                             inline: true
                         },
                         {
-                            "name": "Concrete",
+                            "name": "<:concrete:979718826767810560>",
                             "value": "Slots " + itemData.concrete1 + " & " + itemData.concrete2,
                             inline: true
                         },
@@ -116,6 +116,8 @@ module.exports = {
                     .setTimestamp();
                     return interaction.reply({ embeds: [e], files: [attachment] });
                 }
+            }).catch(function(err) {
+                return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\nThis request returned a **${response.status}** status code.`});
             })
         } else {
             const numericcheck = [];
@@ -150,7 +152,9 @@ module.exports = {
                     const j = await response.json();
                     if (response.status != 200) return interaction.reply({'content': 'Something went wrong!\n' + JSON.stringify(j), ephemeral: true});
                     else return interaction.reply({'content': 'Successfully updated your inventory :)', ephemeral: true});
-                })
+                }).catch(function(err) {
+                    return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
+                });
             }
         }
     }
