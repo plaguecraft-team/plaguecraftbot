@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
-const fetch = require('node-fetch');
+const {isAuth,fetchGameData,updateInventory,fetchUsername} = require('../modules/wrapper');
+// const fetch = require('node-fetch');
 module.exports = {
     name: 'inventory',
     data: new SlashCommandBuilder()
@@ -21,38 +22,33 @@ module.exports = {
                 .setDescription("Update your inventory")
                 .addStringOption(option =>
                     option
-                        .setName('ign')
-                        .setDescription('Your IGN')
-                        .setRequired(true))
-                .addStringOption(option =>
-                    option
                         .setName("sword")
-                        .setDescription("The slot number (0-8) of your item")
+                        .setDescription("The slot number (1-9) of your item")
                         .setRequired(true))
                 .addStringOption(option =>
                     option
                         .setName("concrete1")
-                        .setDescription("The slot number (0-8) of your item")
+                        .setDescription("The slot number (1-9) of your item")
                         .setRequired(true))
                 .addStringOption(option =>
                     option
                         .setName("concrete2")
-                        .setDescription("The slot number (0-8) of your item")
+                        .setDescription("The slot number (1-9) of your item")
                         .setRequired(true))
                 .addStringOption(option =>
                     option
                     .setName("pickaxe")
-                    .setDescription("The slot number (0-8) of your item")
+                    .setDescription("The slot number (1-9) of your item")
                     .setRequired(true))
                 .addStringOption(option =>
                     option
                     .setName("bow")
-                    .setDescription("The slot number (0-8) of your item")
+                    .setDescription("The slot number (1-9) of your item")
                     .setRequired(true))
                 .addStringOption(option =>
                     option
                     .setName("gap")
-                    .setDescription("The slot number (0-8) of your item")
+                    .setDescription("The slot number (1-9) of your item")
                     .setRequired(true))
         ),
     info: {
@@ -63,99 +59,76 @@ module.exports = {
     },
     async execute(interaction, args, author) {
         if (args.length == 1) {
-            fetch("https://api.plaguecraft.xyz/bridges?username=" + args[0], {
-                method: 'get',
-                headers: {
-                    "content-type": 'application/json'
-                }
-            }).then(async function(response) {
-                if (response.status != 200) return interaction.reply({ 'content': "Hey - you don't exist in the database!", ephemeral: true});
-                else {
-                    var j = await response.json();
-                    const itemData = j.user.itemData
+            const itemData = await fetchGameData("bridges", args[0]);
+            if (!itemData) return interaction.reply({content:`Uh oh`, ephemeral:true});
 
-                    const image = await fetch("https://api.plaguecraft.xyz/bridges/image?username=" + args[0], {
-                        method: 'get'
-                    }).then(response => response.arrayBuffer());
-
-                    const attachment = new MessageAttachment(Buffer.from(image, 'utf-8'), 'hotbar.png');
-                    
-                    const e = new MessageEmbed()
-                    .setTitle(`${args[0]}'s Inventory`)
-                    .setAuthor({ name: `${author.username}`, iconURL: author.avatarURL()})
-                    .setColor()
-                    .setImage(`attachment://hotbar.png`)
-                    .addFields(
-                        {
-                            "name": "⚔",
-                            "value": "Slot " + itemData.sword,
-                            inline: true
-                        },
-                        {
-                            "name": "⛏",
-                            "value": "Slot " + itemData.pickaxe,
-                            inline: true
-                        },
-                        {
-                            "name": "🏹",
-                            "value": "Slot " + itemData.bow,
-                            inline: true
-                        },
-                        {
-                            "name": "<:concrete:979718826767810560>",
-                            "value": "Slots " + itemData.concrete1 + " & " + itemData.concrete2,
-                            inline: true
-                        },
-                        {
-                            "name": "🍎",
-                            "value": "Slot " + itemData.gap,
-                            inline: true
-                        }
-                    )
-                    .setFooter({ text: `PlagueCraft Network`, iconURL: `https://plaguecraft.xyz/static/img/logo.png` })
-                    .setTimestamp();
-                    return interaction.reply({ embeds: [e], files: [attachment] });
+            const e = new MessageEmbed()
+            .setTitle(`${args[0]}'s Inventory`)
+            .setAuthor({ name: `${author.username}`, iconURL: author.avatarURL()})
+            .setColor()
+            .setFooter({ text: `PlagueCraft Network`, iconURL: `https://plaguecraft.xyz/static/img/logo.png` })
+            .setTimestamp();
+            
+            const attachment = new MessageAttachment(Buffer.from(itemData.user.hotbarImage.split(',')[1], 'base64'), 'hotbar.png');
+            e.setImage(`attachment://hotbar.png`)
+            e.addFields(
+                {
+                    "name": "⚔",
+                    "value": "Slot " + itemData.user.itemData.sword,
+                    inline: true
+                },
+                {
+                    "name": "⛏",
+                    "value": "Slot " + itemData.user.itemData.pickaxe,
+                    inline: true
+                },
+                {
+                    "name": "🏹",
+                    "value": "Slot " + itemData.user.itemData.bow,
+                    inline: true
+                },
+                {
+                    "name": "<:concrete:979718826767810560>",
+                    "value": "Slots " + itemData.user.itemData.concrete1 + " & " + itemData.user.itemData.concrete2,
+                    inline: true
+                },
+                {
+                    "name": "🍎",
+                    "value": "Slot " + itemData.user.itemData.gap,
+                    inline: true
                 }
-            }).catch(function(err) {
-                return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\nThis request returned a **${response.status}** status code.`});
-            })
+            )
+
+            return interaction.reply({embeds:[e],files:[attachment]})
         } else {
-            const numericcheck = [];
-            let boolean = null;
-    
+            skip = false;
+            if (args.findIndex(v => parseInt(v) > 9 || parseInt(v) < 1) != -1) return interaction.reply({content:'Sorry, you provided a slot number bigger than 9 or smaller than 1!',ephemeral:true});
             args.forEach((val, ind) => {
-                if (args.indexOf(val) != args.lastIndexOf(val)) boolean = true
-                if (parseInt(val) > 8) numericcheck.push(parseInt(val));
+                if (!skip && args.indexOf(val) != args.lastIndexOf(val)) {
+                    skip = true;
+                } 
             })
-    
-            if (numericcheck.length != 0 || boolean == true) return interaction.reply({ content: 'Hey - you provided a slot # that was bigger than 8 or duplicates!', ephemeral: true});
-            else {
+
+            if (skip) return interaction.reply({content: 'Uh oh! You provided a slot number twice.', ephemeral:true })
+            else if (await isAuth(author.id)) {
                 const obj = {
-                    "user": args[0],
+                    "user": await fetchUsername(author.id),
                     "itemData": {
-                        "sword": args[1],
-                        "concrete1": args[2],
-                        "concrete2": args[3],
-                        "pickaxe": args[4],
-                        "bow": args[5],
-                        "gap": args[6]
+                        "sword": `${Math.round(args[0] - 1)}`,
+                        "concrete1": `${Math.round(args[1] - 1)}`,
+                        "concrete2": `${Math.round(args[2] - 1)}`,
+                        "pickaxe": `${Math.round(args[3] - 1)}`,
+                        "bow": `${Math.round(args[4] - 1)}`,
+                        "gap": `${Math.round(args[5] - 1)}`
                     }
                 }
 
-                fetch("https://api.plaguecraft.xyz/bridges/itemData", {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(obj)
-                }).then(async function (response) {
-                    const j = await response.json();
-                    if (response.status != 200) return interaction.reply({'content': 'Something went wrong!\n' + JSON.stringify(j), ephemeral: true});
-                    else return interaction.reply({'content': 'Successfully updated your inventory :)', ephemeral: true});
-                }).catch(function(err) {
-                    return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
-                });
-            }
+                await updateInventory(obj, author.id)
+                .then(function(b) {
+                    if (b) return interaction.reply({content:'Updated your inventory :)',ephemeral:true})
+                    else return interaction.reply({content:'Uh oh! Something went wrong when updating your inventory.',ephemeral:true})
+                })
+            } else return interaction.reply({ content: "Nice try. You're not linked to that account. Now everyone can see you."});
         }
     }
 }

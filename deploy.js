@@ -22,12 +22,12 @@ async function runDeploy() {
     try {
         await rest.put(
             Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
+            { body: [] },
         );
 
         await rest.put(
-            Routes.applicationCommands(clientId),
-            { body: [] },
+            Routes.applicationGuildCommands(clientId, guildId),
+            { body: commands },
         );
 
         console.log(chalk.greenBright.bold('Successfully registered application commands.'));

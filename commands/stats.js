@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const fetch = require('node-fetch');
+const {isAuth,fetchGameData} = require('../modules/wrapper')
+
 module.exports = {
     name: 'stats',
     data: new SlashCommandBuilder()
@@ -33,48 +34,39 @@ module.exports = {
         requireArgs: true
     },
     async execute(interaction, args, author) {
-        await fetch("https://api.plaguecraft.xyz/" + args[1].toLowerCase() + "?username=" + args[0], {
-            method: 'get',
-            headers: {
-                'content-type': 'application/json'
+        if (await isAuth(author.id)) {
+            const embed = new MessageEmbed()
+            .setTitle(`${args[0]} - ${args[1]} Player Stats`)
+            .setAuthor({ name: `${author.username}`, iconURL: author.avatarURL()})
+            .setColor()
+            .setFooter({ text: `PlagueCraft Network`, iconURL: `https://plaguecraft.xyz/static/img/logo.png` })
+            .setTimestamp();
+            if (args[1].toLowerCase() == "bridges") {
+                var d = await fetchGameData("bridges", args[0])
+                embed.addFields(
+                    {
+                        "name": "Kills",
+                        "value": d.user.kills,
+                        "inline": true
+                    }, 
+                    {
+                        "name": "Points",
+                        "value": d.user.points,
+                        "inline": true
+                    }
+                )
+            } else if (args[1].toLowerCase() == "tntrun") {
+                var d = await fetchGameData("tntrun", args[0])
+                embed.addFields(
+                    {
+                        "name": "Points",
+                        "value": d.points,
+                        "inline": true
+                    }
+                )
             }
-        }).then(async function(response) {
-            if (response.status != 200) return interaction.reply({"content": "Hey friend. That didn't work. If you have joined the server before, please let the devs know this happened!", ephemeral: true});
-            else {
-                const j = await response.json();
-                const embed = new MessageEmbed()
-                .setTitle(`${args[0]} - ${args[1]} Player Stats`)
-                .setAuthor({ name: `${author.username}`, iconURL: author.avatarURL()})
-                .setColor()
-                .setFooter({ text: `PlagueCraft Network`, iconURL: `https://plaguecraft.xyz/static/img/logo.png` })
-                .setTimestamp();
-                if (args[1].toLowerCase() == "bridges") {
-                    embed.addFields(
-                        {
-                            "name": "Kills",
-                            "value": j.user.kills,
-                            "inline": true
-                        }, 
-                        {
-                            "name": "Points",
-                            "value": j.user.points,
-                            "inline": true
-                        }
-                    )
-                } else if (args[1].toLowerCase() == "tntrun") {
-                    embed.addFields(
-                        {
-                            "name": "Points",
-                            "value": j.points,
-                            "inline": true
-                        }
-                    )
-                }
 
-                return interaction.reply({ embeds: [embed] });
-            }
-        }).catch(function(err) {
-            return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
-        });
+            return interaction.reply({embeds:[embed]})
+        } else return interaction.reply();
     }
 }

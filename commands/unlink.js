@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const fetch = require('node-fetch');
+const { isAuth,unlinkUser } = require('../modules/wrapper');
 module.exports = {
     name: 'unlink',
     data: new SlashCommandBuilder()
@@ -12,15 +12,9 @@ module.exports = {
         "requireArgs": false
     },
     async execute(interaction, author) {
-        fetch("https://api.plaguecraft.xyz/auth?id=" + interaction.user.id, {
-            method: "delete"
-        }).then(async function (response) {
-            const j = await response.json();
-            if (response.status == 200) return interaction.reply("Great, you've been unlinked!");
-            else if (response.status == 404) return interaction.reply({ content: `Uh oh! API returned "${j.message}"!`, ephemeral: true});
-            else return interaction.reply({ content: `Uh oh! Something went wrong:\n${JSON.stringify(j)}`, ephemeral: true });
-        }).catch(function(err) {
-            return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
-        });
+        if (await isAuth(author.id)) {
+            if (await unlinkUser(author.id)) return interaction.reply({content:`Great, you've been unlinked!`, ephemeral:true});
+            else return interaction.reply({content:'Sorry, something went wrong when unlinking your account!', ephemeral:true})
+        } else return interaction.reply({ content: `Sorry, you're not linked to an account!`, ephemeral:true });
     }
 }

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const fetch = require('node-fetch');
+const { isAuth,linkUser } = require('../modules/wrapper');
 module.exports = {
     name: 'link',
     data: new SlashCommandBuilder()
@@ -22,15 +22,10 @@ module.exports = {
         "requireArgs": true
     },
     async execute(interaction, args, author) {
-        fetch("https://api.plaguecraft.xyz/auth?ign=" + args[0] + "&token=" + args[1] + "&id=" + interaction.user.id, {
-            method: "post"
-        }).then(async function (response) {
-            const j = await response.json();
-            if (response.status == 200) return interaction.reply("Great, you've been linked to **" + args[0] + "**!");
-            else if (response.status == 409) return interaction.reply({ content: `Uh oh! API returned "${j.message}"!`, ephemeral: true});
-            else return interaction.reply({ content: `Uh oh! Something went wrong:\n${JSON.stringify(j)}`, ephemeral: true });
-        }).catch(function(err) {
-            return interaction.reply({ content: `Uh oh! Something went wrong, but I'm not quite sure what.\n**${err.stack}**.`, ephemeral: true });
-        });
+        if (!await isAuth(author.id)) {
+            if (await linkUser(author.id, args[1], args[0])) {
+                return interaction.reply({content: `Great, you're now linked to **${args[0]}**!`, ephemeral:true })
+            } else return interaction.reply({content: 'Uh oh! Something went wrong when linking you. Make sure your token is correct.', ephemeral:true })
+        } else return interaction.reply({content: `Uh oh! You're already linked to an account.`, ephemeral:true })
     }
 }
