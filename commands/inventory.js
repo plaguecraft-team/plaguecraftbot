@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const {isAuth,fetchGameData,updateInventory,fetchUsername} = require('../modules/wrapper');
-// const fetch = require('node-fetch');
 module.exports = {
     name: 'inventory',
     data: new SlashCommandBuilder()

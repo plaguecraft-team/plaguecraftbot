@@ -18,76 +18,19 @@ var guildId = config.client.dev.guild;
 
 const rest = new REST({ version: '9' }).setToken(token);
 
-async function runDeploy() {
-    try {
-        await rest.put(
-            Routes.applicationGuildCommands(clientId, guildId),
-            { body: [] },
-        );
+try {
+    rest.put(
+        Routes.applicationGuildCommands(clientId, guildId),
+        { body: [] },
+    );
 
-        await rest.put(
-            Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
-        );
+    rest.put(
+        Routes.applicationGuildCommands(clientId, guildId),
+        { body: commands },
+    );
 
-        console.log(chalk.greenBright.bold('Successfully registered application commands.'));
-        process.exit(0);
-    } catch (error) {
-        console.error(error);
-    }
+    console.log(chalk.greenBright.bold('Successfully registered application commands.'));
+    process.exit(0);
+} catch (error) {
+    console.error(error);
 }
-
-runDeploy();
-
-// (async () => {
-    // try {
-    //     await rest.put(
-    //         Routes.applicationGuildCommands(clientId, guildId),
-    //         { body: commands },
-    //     );
-
-    //     console.log(chalk.greenBright.bold('Successfully registered application commands.'));
-    //     process.exit(0);
-    // } catch (error) {
-    //     console.error(error);
-    // }
-// });
-
-// if (config.env == "prod") {
-//     var token = config.tokens.prod;
-// 	var clientId = config.client.prod.client;
-
-//     const rest = new REST({ version: '9' }).setToken(token);
-
-//     (async () => {
-//         try {
-            // await rest.put(
-            //     Routes.applicationCommands(clientId),
-            //     { body: commands },
-            // );
-    
-//             console.log(chalk.greenBright.bold('Successfully registered global application commands.'));
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     })();
-// } else if (config.env == "dev") {
-//     var token = config.tokens.dev;
-//     var clientId = config.client.dev.clientId;
-//     var guildId = config.client.dev.guildId;
-
-//     const rest = new REST({ version: '9' }).setToken(token);
-    
-//     (async () => {
-//         try {
-//             await rest.put(
-//                 Routes.applicationGuildCommands(clientId, guildId),
-//                 { body: commands },
-//             );
-    
-//             console.log(chalk.greenBright.bold('Successfully registered application commands.'));
-//             process.exit(0);
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     })();
