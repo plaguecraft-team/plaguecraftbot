@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const base = "https://api.plaguecraft.xyz";
+const base = "https://services.plaguecraft.xyz";
 
 async function isAuth(id) {
     const d = await fetch(base + "/auth/@me?id=" + id, {
